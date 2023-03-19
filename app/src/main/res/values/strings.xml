@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StockView</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="login">Войти</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="password_again">Подтвердить пароль</string>
+    <string name="all_ready_have_account">У меня есть аккаунт</string>
+    <string name="logo">logo</string>
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yp_white"
+    android:padding="@dimen/value_32dp">
+
+
+    <ImageView
+        android:id="@+id/register_screen_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo"
+
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/register_screen_email_et"
+        style="@style/LoginScreenInput"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_64dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_screen_logo" />
+
+    <EditText
+        android:id="@+id/register_screen_password_et"
+        style="@style/LoginScreenInput"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_64dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_screen_email_et" />
+
+    <EditText
+        android:id="@+id/register_screen_password_again"
+        style="@style/LoginScreenInput"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/value_64dp"
+        android:hint="@string/password_again"
+        android:inputType="textPassword"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_screen_password_et" />
+
+    <Button
+        style="@style/LoginScreenButton"
+        android:id="@+id/register_screen_register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_screen_password_again" />
+
+    <TextView
+        style="@style/LoginScreenText"
+        android:id="@+id/register_screen_all_ready_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_ready_have_account"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
