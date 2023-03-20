@@ -12,7 +12,6 @@ import ru.igorsh.stockview.R
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -24,8 +23,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
         loginButton.setOnClickListener {
-            if (isInputField(emailField.text.toString()) or isInputField(passwordField.text.toString())) {
-                Toast.makeText(activity, "Введите email или пароль.", Toast.LENGTH_SHORT).show()
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+
+            if (email.isEmpty() or password.isEmpty()) {
+                Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             }
@@ -35,6 +37,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
         }
     }
-
-    private fun isInputField(inputField: String): Boolean = inputField.isNullOrEmpty()
 }

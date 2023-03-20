@@ -10,7 +10,6 @@ import ru.igorsh.stockview.R
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -22,20 +21,20 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
 
         registerButton.setOnClickListener {
-            if (isInputField(emailField.text.toString()) or isInputField(passwordField.text.toString()) or isInputField(
-                    passwordAgainField.text.toString()
-                )
-            ) {
-                Toast.makeText(activity, "Введите email или пароль.", Toast.LENGTH_SHORT).show()
+
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+            val secondPassword = passwordAgainField.text.toString()
+
+            if (email.isEmpty() or password.isEmpty() or secondPassword.isEmpty()) {
+                Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
-                if (passwordAgainField.text.toString() != passwordField.text.toString()) {
-                    Toast.makeText(activity, "Пароли не совпадают.", Toast.LENGTH_SHORT).show()
+                if (password != secondPassword) {
+                    Toast.makeText(activity, R.string.passwords_do_not_match, Toast.LENGTH_SHORT).show()
                 } else {
                     findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
                 }
             }
         }
     }
-
-    private fun isInputField(inputField: String): Boolean = inputField.isNullOrEmpty()
 }

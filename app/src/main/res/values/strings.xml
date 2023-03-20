@@ -7,4 +7,6 @@
     <string name="password_again">Подтвердить пароль</string>
     <string name="all_ready_have_account">У меня есть аккаунт</string>
     <string name="logo">logo</string>
+    <string name="empty_field_message">Введите email или пароль.</string>
+    <string name="passwords_do_not_match">Пароли не совпадают.</string>
 </resources>
