@@ -6,9 +6,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
+
+    val viewModel: RegistrationViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +33,8 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                 Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
                 if (password != secondPassword) {
-                    Toast.makeText(activity, R.string.passwords_do_not_match, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, R.string.passwords_do_not_match, Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
                 }
