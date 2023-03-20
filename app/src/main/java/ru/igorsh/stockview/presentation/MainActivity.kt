@@ -1,7 +1,8 @@
-package ru.igorsh.stockview
+package ru.igorsh.stockview.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.igorsh.stockview.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

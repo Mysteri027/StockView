@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "574676997318",
+    "project_id": "stockview-99cff",
+    "storage_bucket": "stockview-99cff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574676997318:android:0ec7379f5b994ef5a3b3c7",
+        "android_client_info": {
+          "package_name": "ru.igorsh.stockview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574676997318-03l24glm5164hke5ah5r2shdkp3q1bf7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp-2zB3VnBWgctKeHRA-Y7d5eEvcvaLxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574676997318-03l24glm5164hke5ah5r2shdkp3q1bf7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
