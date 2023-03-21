@@ -12,4 +12,8 @@
     <string name="successful_login">Вы успешно авторизовались.</string>
     <string name="unsuccessful_login">Авторизация не удалась. Попробуйте ещё раз.</string>
     <string name="unsuccessful_register">Регистрация не удалась. Попробуйте ещё раз.</string>
+    <string name="search">Поиск</string>
+    <string name="favorite">Избранное</string>
+    <string name="New">Новости</string>
+    <string name="profile">Профиль</string>
 </resources>
