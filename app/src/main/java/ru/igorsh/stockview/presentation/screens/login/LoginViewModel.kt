@@ -18,4 +18,8 @@ class LoginViewModel(
     fun setAuthStatus(status: Boolean) {
         setAuthStatusUseCase.invoke(status)
     }
+
+    fun isEmptyFields(email: String, password: String): Boolean {
+        return email.isEmpty() or password.isEmpty()
+    }
 }

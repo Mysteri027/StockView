@@ -29,17 +29,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
 
-            if (email.isEmpty() or password.isEmpty()) {
+            if(viewModel.isEmptyFields(email, password)) {
+
                 Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
+
                 val result = viewModel.login(User(email, password))
                 result.addOnCompleteListener {
+
                     if (result.isSuccessful) {
+
                         Toast.makeText(activity, R.string.successful_login, Toast.LENGTH_SHORT)
                             .show()
                         viewModel.setAuthStatus(status = true)
                         findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                     } else {
+
                         Toast.makeText(activity, R.string.unsuccessful_login, Toast.LENGTH_SHORT)
                             .show()
                     }

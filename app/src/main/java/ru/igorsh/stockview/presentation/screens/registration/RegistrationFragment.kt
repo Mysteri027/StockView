@@ -12,7 +12,7 @@ import ru.igorsh.stockview.domain.model.User
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
-    val viewModel: RegistrationViewModel by viewModel()
+    private val viewModel: RegistrationViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,10 +30,10 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
             val password = passwordField.text.toString()
             val secondPassword = passwordAgainField.text.toString()
 
-            if (email.isEmpty() or password.isEmpty() or secondPassword.isEmpty()) {
+            if (viewModel.isEmptyFields(email, password, secondPassword)) {
                 Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
-                if (password != secondPassword) {
+                if (!viewModel.isEqualsPassword(password, secondPassword)) {
                     Toast.makeText(activity, R.string.passwords_do_not_match, Toast.LENGTH_SHORT)
                         .show()
                 } else {

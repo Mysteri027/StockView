@@ -19,4 +19,12 @@ class RegistrationViewModel(
     fun setAuthStatus(status: Boolean) {
         setAuthStatusUseCase.invoke(status)
     }
+
+    fun isEmptyFields(email: String, password: String, secondPassword: String): Boolean {
+        return email.isEmpty() or password.isEmpty() or secondPassword.isEmpty()
+    }
+
+    fun isEqualsPassword(password: String, secondPassword: String): Boolean {
+        return password == secondPassword
+    }
 }
