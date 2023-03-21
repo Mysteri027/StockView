@@ -11,7 +11,7 @@ class UserRepositoryImpl(
 ) : UserRepository {
 
     override fun logInUser(user: User): Task<AuthResult> {
-        return firebaseAuth.signInWithEmailAndPassword(user.email, user.password )
+        return firebaseAuth.signInWithEmailAndPassword(user.email, user.password)
     }
 
     override fun registerUser(user: User): Task<AuthResult> {

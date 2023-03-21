@@ -37,6 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     if (result.isSuccessful) {
                         Toast.makeText(activity, R.string.successful_login, Toast.LENGTH_SHORT)
                             .show()
+                        viewModel.setAuthStatus(status = true)
                         findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                     } else {
                         Toast.makeText(activity, R.string.unsuccessful_login, Toast.LENGTH_SHORT)

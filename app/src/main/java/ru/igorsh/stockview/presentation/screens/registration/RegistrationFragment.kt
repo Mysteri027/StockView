@@ -40,6 +40,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     val result = viewModel.register(User(email, password))
                     result.addOnCompleteListener {
                         if (result.isSuccessful) {
+                            viewModel.setAuthStatus(status = true)
                             findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
                         } else {
                             Toast.makeText(
