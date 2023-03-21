@@ -20,11 +20,7 @@ class RegistrationViewModel(
         setAuthStatusUseCase.invoke(status)
     }
 
-    fun isEmptyFields(email: String, password: String, secondPassword: String): Boolean {
-        return email.isEmpty() or password.isEmpty() or secondPassword.isEmpty()
-    }
-
-    fun isEqualsPassword(password: String, secondPassword: String): Boolean {
-        return password == secondPassword
+    fun isEmptyFields(email: String, password: String): Boolean {
+        return email.isEmpty() or password.isEmpty()
     }
 }

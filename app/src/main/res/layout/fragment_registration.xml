@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yp_white"
@@ -24,18 +23,20 @@
         style="@style/LoginScreenInput"
         android:layout_width="match_parent"
         android:layout_height="@dimen/value_64dp"
+        android:layout_marginTop="@dimen/value_32dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_screen_logo" />
+
 
     <EditText
         android:id="@+id/register_screen_password_et"
         style="@style/LoginScreenInput"
         android:layout_width="match_parent"
         android:layout_height="@dimen/value_64dp"
+        android:layout_marginTop="@dimen/value_32dp"
         android:hint="@string/password"
         android:inputType="textPassword"
 
@@ -43,21 +44,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_screen_email_et" />
 
-    <EditText
-        android:id="@+id/register_screen_password_again"
-        style="@style/LoginScreenInput"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/value_64dp"
-        android:hint="@string/password_again"
-        android:inputType="textPassword"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_screen_password_et" />
 
     <Button
-        style="@style/LoginScreenButton"
         android:id="@+id/register_screen_register_button"
+        style="@style/LoginScreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
@@ -65,6 +55,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_screen_password_again" />
+        app:layout_constraintTop_toBottomOf="@+id/register_screen_password_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
