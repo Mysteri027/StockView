@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
+import ru.igorsh.stockview.domain.model.User
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -31,7 +32,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (email.isEmpty() or password.isEmpty()) {
                 Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
             } else {
-                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                val result = viewModel.login(User(email, password))
+                result.addOnCompleteListener {
+                    if (result.isSuccessful) {
+                        Toast.makeText(activity, R.string.successful_login, Toast.LENGTH_SHORT)
+                            .show()
+                        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                    } else {
+                        Toast.makeText(activity, R.string.unsuccessful_login, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
         }
 

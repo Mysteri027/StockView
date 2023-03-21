@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
+import ru.igorsh.stockview.domain.model.User
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
@@ -36,7 +37,18 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     Toast.makeText(activity, R.string.passwords_do_not_match, Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+                    val result = viewModel.register(User(email, password))
+                    result.addOnCompleteListener {
+                        if (result.isSuccessful) {
+                            findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+                        } else {
+                            Toast.makeText(
+                                activity,
+                                R.string.unsuccessful_register,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         }

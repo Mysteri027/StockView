@@ -9,4 +9,7 @@
     <string name="logo">logo</string>
     <string name="empty_field_message">Введите email или пароль.</string>
     <string name="passwords_do_not_match">Пароли не совпадают.</string>
+    <string name="successful_login">Вы успешно авторизовались.</string>
+    <string name="unsuccessful_login">Авторизация не удалась. Попробуйте ещё раз.</string>
+    <string name="unsuccessful_register">Регистрация не удалась. Попробуйте ещё раз.</string>
 </resources>
