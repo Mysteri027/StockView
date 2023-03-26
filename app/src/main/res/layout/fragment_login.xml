@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,17 +29,34 @@
         app:layout_constraintTop_toBottomOf="@id/login_screen_logo" />
 
 
-    <EditText
-        android:id="@+id/login_screen_password_et"
-        style="@style/LoginScreenInput"
+    <FrameLayout
+        android:id="@+id/login_screen_password_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/value_64dp"
-        android:hint="@string/password"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/value_32dp"
-        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_screen_email_et" />
+        app:layout_constraintTop_toBottomOf="@id/login_screen_email_et">
+
+        <EditText
+            android:id="@+id/login_screen_password_et"
+            style="@style/LoginScreenInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/value_64dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_screen_email_et" />
+
+        <ImageView
+            android:id="@+id/login_screen_password_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/eye"
+            android:layout_marginEnd="@dimen/value_8dp"
+            android:layout_gravity="end"/>
+    </FrameLayout>
 
 
     <Button
@@ -53,7 +69,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_screen_password_et" />
+        app:layout_constraintTop_toBottomOf="@+id/login_screen_password_container" />
 
 
     <TextView

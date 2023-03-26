@@ -8,5 +8,5 @@ interface UserRepository {
 
     fun logInUser(user: User): Task<AuthResult>
     fun registerUser(user: User): Task<AuthResult>
-
+    fun logOutUser()
 }

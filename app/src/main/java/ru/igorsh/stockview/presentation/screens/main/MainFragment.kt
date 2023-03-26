@@ -5,9 +5,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ru.igorsh.stockview.R
 
-class MainFragment: Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,7 +23,7 @@ class MainFragment: Fragment(R.layout.fragment_main) {
         }
 
         profileButton.setOnClickListener {
-            Toast.makeText(activity, "Профиль", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
         }
 
         newsButton.setOnClickListener {

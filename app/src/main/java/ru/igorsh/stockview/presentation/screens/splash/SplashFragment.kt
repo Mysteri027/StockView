@@ -12,13 +12,17 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
     private val viewModel: SplashViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.postDelayed({
             if (viewModel.getAuthStatus()) {
                 findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
             } else {
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
+        }, NAVIGATION_DELAY)
+    }
 
-        }, 1000)
+    companion object {
+        private const val NAVIGATION_DELAY = 2000L
     }
 }
