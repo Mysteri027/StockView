@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,52 +18,75 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private val viewModel: RegistrationViewModel by viewModel()
     private var isPasswordVisible = false
+
+    private lateinit var emailField: TextView
+    private lateinit var passwordField: TextView
+    private lateinit var visibleEye: ImageView
+    private lateinit var registerButton: TextView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val emailField = view.findViewById<TextView>(R.id.register_screen_email_et)
-        val passwordField = view.findViewById<TextView>(R.id.register_screen_password_et)
-        val visibleEye = view.findViewById<ImageView>(R.id.register_screen_password_eye)
-        val registerButton = view.findViewById<TextView>(R.id.register_screen_register_button)
-
+        setupUiElements(view)
 
         registerButton.setOnClickListener {
-
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
 
-            if (viewModel.isEmptyFields(email, password)) {
-                Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
-            } else {
-
-                val result = viewModel.register(User(email, password))
-                result.addOnCompleteListener {
-                    if (result.isSuccessful) {
-                        viewModel.setAuthStatus(status = true)
-                        findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
-                    } else {
-                        Toast.makeText(
-                            activity,
-                            R.string.unsuccessful_register,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
+            registerUser(email, password)
         }
 
         visibleEye.setOnClickListener {
             if (isPasswordVisible) {
-                isPasswordVisible = false
-                visibleEye.setImageResource(R.drawable.eye)
-                passwordField.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-
+                changePasswordFieldVisibility(
+                    false,
+                    R.drawable.eye,
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                )
             } else {
-                isPasswordVisible = true
-                passwordField.inputType = InputType.TYPE_CLASS_TEXT
-                visibleEye.setImageResource(R.drawable.eye_off)
+                changePasswordFieldVisibility(
+                    true,
+                    R.drawable.eye_off,
+                    InputType.TYPE_CLASS_TEXT
+                )
             }
         }
 
+    }
+
+    private fun setupUiElements(view: View) {
+        emailField = view.findViewById(R.id.register_screen_email_et)
+        passwordField = view.findViewById(R.id.register_screen_password_et)
+        visibleEye = view.findViewById(R.id.register_screen_password_eye)
+        registerButton = view.findViewById(R.id.register_screen_register_button)
+    }
+
+    private fun showTextMessage(@StringRes message: Int) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun registerUser(email: String, password: String) {
+        if (viewModel.isEmptyFields(email, password)) {
+            showTextMessage(R.string.empty_field_message)
+        } else {
+            val result = viewModel.register(User(email, password))
+            result.addOnCompleteListener {
+                if (result.isSuccessful) {
+                    viewModel.setAuthStatus(status = true)
+                    findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
+                } else {
+                    showTextMessage(R.string.unsuccessful_register)
+                }
+            }
+        }
+    }
+
+    private fun changePasswordFieldVisibility(
+        currentVisibility: Boolean,
+        @DrawableRes resId: Int,
+        inputType: Int
+    ) {
+        isPasswordVisible = currentVisibility
+        visibleEye.setImageResource(resId)
+        passwordField.inputType = inputType
     }
 }

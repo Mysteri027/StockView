@@ -13,7 +13,7 @@
         android:padding="@dimen/value_16dp"
         android:text="@string/app_name"
         android:textColor="@color/yp_white"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/main_screen_search_button"
