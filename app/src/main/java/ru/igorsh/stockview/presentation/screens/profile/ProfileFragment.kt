@@ -19,7 +19,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         logoutButton.setOnClickListener {
             viewModel.logout()
-            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
 
     }

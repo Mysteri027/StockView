@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/newsFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.igorsh.stockview.presentation.screens.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="ru.igorsh.stockview.presentation.screens.news.NewsFragment"
+        android:label="NewsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.igorsh.stockview.presentation.screens.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>
