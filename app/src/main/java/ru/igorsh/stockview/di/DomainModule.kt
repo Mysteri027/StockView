@@ -2,6 +2,7 @@ package ru.igorsh.stockview.di
 
 import org.koin.dsl.module
 import ru.igorsh.stockview.domain.interactor.GetAuthStatusUseCase
+import ru.igorsh.stockview.domain.interactor.GetNewUseCase
 import ru.igorsh.stockview.domain.interactor.LoginUseCase
 import ru.igorsh.stockview.domain.interactor.LogoutUseCase
 import ru.igorsh.stockview.domain.interactor.RegisterUseCase
@@ -28,5 +29,9 @@ val domainModule = module {
 
     factory {
         LogoutUseCase(userRepository = get())
+    }
+
+    factory {
+        GetNewUseCase(networkRepository = get())
     }
 }

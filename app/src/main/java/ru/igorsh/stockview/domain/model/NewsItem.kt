@@ -1,4 +1,4 @@
-package ru.igorsh.stockview.presentation.model
+package ru.igorsh.stockview.domain.model
 
 data class NewsItem(
     val image: String,

@@ -28,7 +28,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        NewsViewModel()
+        NewsViewModel(getNewUseCase = get())
     }
 
     viewModel {

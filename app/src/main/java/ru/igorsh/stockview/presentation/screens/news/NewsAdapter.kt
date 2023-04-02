@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.igorsh.stockview.R
-import ru.igorsh.stockview.presentation.model.NewsItem
+import ru.igorsh.stockview.domain.model.NewsItem
 
 class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
 

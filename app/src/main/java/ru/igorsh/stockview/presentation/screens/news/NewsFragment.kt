@@ -2,43 +2,52 @@ package ru.igorsh.stockview.presentation.screens.news
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
-import ru.igorsh.stockview.presentation.model.NewsItem
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
+
+    private val viewModel: NewsViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val errorMessage = view.findViewById<TextView>(R.id.news_screen_error_message)
+        val updateButton = view.findViewById<Button>(R.id.news_screen_update_button)
+
         val newsList = view.findViewById<RecyclerView>(R.id.news_screen_news_list)
         val newsListAdapter = NewsAdapter()
 
-        newsListAdapter.newsList = generateNewsList()
+        viewModel.getNews()
 
+        viewModel.newsList.observe(viewLifecycleOwner) {
+            newsListAdapter.newsList.clear()
+            newsListAdapter.newsList.addAll(it)
+        }
+
+        viewModel.isNetworkError.observe(viewLifecycleOwner) {
+            if (it) {
+                errorMessage.visibility = View.VISIBLE
+                updateButton.visibility = View.VISIBLE
+
+                newsList.visibility = View.GONE
+            } else {
+                errorMessage.visibility = View.GONE
+                updateButton.visibility = View.GONE
+
+                newsList.visibility = View.VISIBLE
+            }
+        }
 
         newsList.adapter = newsListAdapter
 
-    }
-
-    fun generateNewsList(): MutableList<NewsItem> {
-        val newsList = mutableListOf<NewsItem>()
-
-        repeat (100) {
-            newsList.add(
-                NewsItem(
-                    image = IMAGE_URL,
-                    title = getString(R.string.news_title),
-                    description = getString(R.string.news_description)
-                )
-            )
+        updateButton.setOnClickListener {
+            viewModel.getNews()
         }
 
-        return newsList
-    }
-
-    companion object {
-        private const val IMAGE_URL = "https://sun9-33.userapi.com/impg/uPk8h9Bm7odpU8d2cWSWOQs5fWE_r1bZZfiFCg/_EikI5BsDIs.jpg?size=1185x1280&quality=96&sign=de1b14e32e5bc192a60c6b72df91d18e&type=album"
     }
 }
