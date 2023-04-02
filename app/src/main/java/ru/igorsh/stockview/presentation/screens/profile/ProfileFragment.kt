@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 
@@ -19,7 +18,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         logoutButton.setOnClickListener {
             viewModel.logout()
-            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
 
     }

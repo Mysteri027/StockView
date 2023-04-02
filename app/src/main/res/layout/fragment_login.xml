@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yp_white"
+    android:background="@color/yp_black"
     android:padding="@dimen/value_32dp">
 
 
     <ImageView
         android:id="@+id/login_screen_logo"
+        style="@style/LogoTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/logo" />
 
     <EditText
         android:id="@+id/login_screen_email_et"
@@ -26,7 +27,8 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_screen_logo" />
+        app:layout_constraintTop_toBottomOf="@id/login_screen_logo"
+        android:importantForAutofill="no" />
 
 
     <FrameLayout
@@ -47,15 +49,17 @@
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_screen_email_et" />
+            app:layout_constraintTop_toBottomOf="@id/login_screen_email_et"
+            android:importantForAutofill="no" />
 
         <ImageView
             android:id="@+id/login_screen_password_eye"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/eye"
+            android:layout_gravity="end"
             android:layout_marginEnd="@dimen/value_8dp"
-            android:layout_gravity="end"/>
+            android:src="@drawable/eye"
+            android:contentDescription="@string/visible_eye" />
     </FrameLayout>
 
 
@@ -78,7 +82,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

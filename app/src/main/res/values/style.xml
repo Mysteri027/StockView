@@ -8,6 +8,12 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="LogoTheme">
+        <item name="android:layout_marginTop">@dimen/value_64dp</item>
+        <item name="android:contentDescription">@string/logo</item>
+        <item name="android:src">@drawable/logo</item>
+    </style>
+
     <style name="LoginScreenInput">
         <item name="android:background">@drawable/rounded_edittext</item>
         <item name="android:fontFamily">@font/ys_display_medium</item>
@@ -29,7 +35,7 @@
 
     <style name="LoginScreenText">
         <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:textColor">@color/yp_black</item>
+        <item name="android:textColor">@color/yp_white</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -41,6 +47,13 @@
         <item name="android:textColor">@color/yp_black</item>
         <item name="android:textSize">24sp</item>
         <item name="cornerRadius">@dimen/value_32dp</item>
+    </style>
+
+    <style name="ScreensTitle">
+        <item name="android:textColor">@color/yp_white</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:layout_margin">@dimen/value_16dp</item>
+        <item name="android:fontFamily">@font/ys_display</item>
     </style>
 
 </resources>
