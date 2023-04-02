@@ -17,4 +17,8 @@
     <string name="favorite">Избранное</string>
     <string name="news">Новости</string>
     <string name="profile">Профиль</string>
+    <string name="visible_eye">visible eye</string>
+    <string name="news_title">Овердрафт: что это такое и в каких случаях им можно пользоваться</string>
+    <string name="news_description">Как использовать овердрафт физическим и юридическим лицам, и чем он отличается от обычного кредита — в обзоре «РБК Инвестиций»</string>
+    <string name="news_image">news image</string>
 </resources>
