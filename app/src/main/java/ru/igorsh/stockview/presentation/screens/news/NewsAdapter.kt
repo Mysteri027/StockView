@@ -13,7 +13,7 @@ import ru.igorsh.stockview.domain.model.NewsItem
 class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
 
     var newsList = mutableListOf<NewsItem>()
-
+    var clickListener: ((NewsItem) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return NewsViewHolder(view)
@@ -23,6 +23,9 @@ class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem = newsList[position]
+        holder.itemView.setOnClickListener {
+            clickListener?.invoke(newsItem)
+        }
         holder.bind(newsItem)
     }
 

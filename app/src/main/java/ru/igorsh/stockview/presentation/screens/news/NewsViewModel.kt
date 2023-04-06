@@ -17,24 +17,23 @@ class NewsViewModel(
     private val _newsList = MutableLiveData<List<NewsItem>>()
     val newsList: LiveData<List<NewsItem>> = _newsList
 
-    private val _isNetworkError = MutableLiveData<Boolean>()
-    val isNetworkError = _isNetworkError
+    init {
+        getNews()
+    }
 
-    fun getNews() {
+    private fun getNews() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = getNewUseCase.invoke()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-                    _isNetworkError.postValue(false)
-                    _newsList.postValue(response.body()?.map {
+                    _newsList.postValue(response.body()!!.news.map {
                         NewsItem(
-                            image = it.image,
+                            image = it.imageLink,
                             title = it.title,
-                            description = it.description
+                            description = it.description,
+                            newsLink = it.newsLink
                         )
-                    } ?: listOf())
-                } else {
-                    _isNetworkError.postValue(true)
+                    })
                 }
             }
         }

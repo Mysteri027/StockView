@@ -1,8 +1,11 @@
 package ru.igorsh.stockview.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class NewsResponseItem(
-    val id: String,
-    val image: String,
-    val title: String,
-    val description: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("id") val id: Int,
+    @SerializedName("image_link") val imageLink: String,
+    @SerializedName("news_link") val newsLink: String,
+    @SerializedName("title") val title: String
 )

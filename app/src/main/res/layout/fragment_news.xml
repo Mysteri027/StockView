@@ -18,42 +18,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_screen_news_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/value_16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/news_screen_title"
-        tools:listitem="@layout/news_item"
-        tools:visibility="gone" />
-
-    <TextView
-        android:id="@+id/news_screen_error_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/ys_display"
-        android:text="@string/network_error"
-        android:textColor="@color/yp_white"
-        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/news_screen_update_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/value_32dp"
-        android:backgroundTint="@color/yp_white"
-        android:fontFamily="@font/ys_display"
-        android:text="@string/network_error"
-        android:textAllCaps="false"
-        android:textColor="@color/yp_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/news_screen_error_message" />
-
+        app:layout_constraintTop_toBottomOf="@id/news_screen_title"
+        tools:listitem="@layout/news_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
