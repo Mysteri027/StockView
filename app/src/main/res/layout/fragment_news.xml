@@ -25,6 +25,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/news_screen_title"
-        tools:listitem="@layout/news_item" />
+        tools:listitem="@layout/news_item"
+        tools:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/news_screen_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/yp_white"
+        android:text="@string/network_error"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

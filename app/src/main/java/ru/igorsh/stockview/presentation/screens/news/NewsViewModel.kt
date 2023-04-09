@@ -7,35 +7,92 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
+import ru.igorsh.stockview.data.network.model.NewsResponse
+import ru.igorsh.stockview.domain.interactor.AddNewsListToDataBaseUseCase
 import ru.igorsh.stockview.domain.interactor.GetNewUseCase
+import ru.igorsh.stockview.domain.interactor.GetNewsListFromDataBaseUseCase
+import ru.igorsh.stockview.domain.mapper.NewsDatabaseGetMapper
+import ru.igorsh.stockview.domain.mapper.NewsDatabaseInsertMapper
+import ru.igorsh.stockview.domain.mapper.NewsResponseMapper
 import ru.igorsh.stockview.domain.model.NewsItem
 
 class NewsViewModel(
-    private val getNewUseCase: GetNewUseCase
-) : ViewModel() {
+    private val getNewUseCase: GetNewUseCase,
+    private val addNewsListToDataBaseUseCase: AddNewsListToDataBaseUseCase,
+    private val getNewsListFromDataBaseUseCase: GetNewsListFromDataBaseUseCase,
+    private val getLocalDataBaseMapper: NewsDatabaseGetMapper,
+    private val insertLocalDataBaseMapper: NewsDatabaseInsertMapper,
+    private val responseMapper: NewsResponseMapper,
+
+    ) : ViewModel() {
 
     private val _newsList = MutableLiveData<List<NewsItem>>()
     val newsList: LiveData<List<NewsItem>> = _newsList
 
+    private val _isEmptyData = MutableLiveData<Boolean>()
+    val isEmptyData: LiveData<Boolean> = _isEmptyData
+
     init {
-        getNews()
+        getNewsFromAPi()
     }
 
-    private fun getNews() {
+    private fun getNewsFromAPi() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = getNewUseCase.invoke()
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    _newsList.postValue(response.body()!!.news.map {
-                        NewsItem(
-                            image = it.imageLink,
-                            title = it.title,
-                            description = it.description,
-                            newsLink = it.newsLink
-                        )
-                    })
+            try {
+                val response = getNewUseCase.invoke()
+                withContext(Dispatchers.Main) {
+                    if (isResponseValid(response)) {
+                        val newsList = response.body()!!.news.map {
+                            responseMapper.map(it)
+                        }
+                        if (newsList.isEmpty()) {
+                            _isEmptyData.postValue(true)
+                        } else {
+                            _isEmptyData.postValue(false)
+                            _newsList.postValue(newsList)
+                        }
+
+
+                        insertNewsInLocalDatabase(newsList)
+
+                    } else {
+                        getNewsFromLocalDatabase()
+                    }
                 }
+            } catch (e: Exception) {
+                getNewsFromLocalDatabase()
             }
+        }
+    }
+
+    private fun isResponseValid(response: Response<NewsResponse>): Boolean {
+        return response.code() == 200 && response.isSuccessful
+    }
+
+    private suspend fun getNewsFromLocalDatabase() {
+        withContext(Dispatchers.IO) {
+            val newsList: List<NewsItem> = getNewsListFromDataBaseUseCase.invoke().map {
+                getLocalDataBaseMapper.map(it)
+            }
+
+            withContext(Dispatchers.Main) {
+                if (newsList.isEmpty()) {
+                    _isEmptyData.postValue(true)
+                } else {
+                    _isEmptyData.postValue(false)
+                    _newsList.postValue(newsList)
+                }
+
+            }
+        }
+    }
+
+    private suspend fun insertNewsInLocalDatabase(newsList: List<NewsItem>) {
+        withContext(Dispatchers.IO) {
+            addNewsListToDataBaseUseCase.invoke(newsList.map {
+                insertLocalDataBaseMapper.map(it)
+            })
         }
     }
 }

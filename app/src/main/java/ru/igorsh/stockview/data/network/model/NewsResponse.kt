@@ -1,4 +1,4 @@
-package ru.igorsh.stockview.data.model
+package ru.igorsh.stockview.data.network.model
 
 import com.google.gson.annotations.SerializedName
 

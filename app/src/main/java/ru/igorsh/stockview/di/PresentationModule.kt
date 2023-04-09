@@ -28,7 +28,14 @@ val presentationModule = module {
     }
 
     viewModel {
-        NewsViewModel(getNewUseCase = get())
+        NewsViewModel(
+            getNewUseCase = get(),
+            addNewsListToDataBaseUseCase = get(),
+            getNewsListFromDataBaseUseCase = get(),
+            insertLocalDataBaseMapper = get(),
+            getLocalDataBaseMapper = get(),
+            responseMapper = get(),
+        )
     }
 
     viewModel {
