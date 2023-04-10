@@ -28,14 +28,12 @@
         tools:listitem="@layout/news_item"
         tools:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/news_screen_error_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ProgressBar
+        android:id="@+id/news_screen_progress_bar"
+        android:layout_width="@dimen/value_64dp"
+        android:layout_height="@dimen/value_64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/yp_white"
-        android:text="@string/network_error"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

@@ -46,12 +46,11 @@ class NewsViewModel(
                         val newsList = response.body()!!.news.map {
                             responseMapper.map(it)
                         }
-                        if (newsList.isEmpty()) {
-                            _isEmptyData.postValue(true)
-                        } else {
-                            _isEmptyData.postValue(false)
+
+                        if (newsList.isNotEmpty()) {
                             _newsList.postValue(newsList)
                         }
+                        _isEmptyData.postValue(newsList.isEmpty())
 
 
                         insertNewsInLocalDatabase(newsList)
@@ -77,17 +76,15 @@ class NewsViewModel(
             }
 
             withContext(Dispatchers.Main) {
-                if (newsList.isEmpty()) {
-                    _isEmptyData.postValue(true)
-                } else {
-                    _isEmptyData.postValue(false)
+                if (newsList.isNotEmpty()) {
                     _newsList.postValue(newsList)
                 }
-
+                _isEmptyData.postValue(newsList.isEmpty())
             }
         }
     }
 
+    // TODO() убрать копии
     private suspend fun insertNewsInLocalDatabase(newsList: List<NewsItem>) {
         withContext(Dispatchers.IO) {
             addNewsListToDataBaseUseCase.invoke(newsList.map {
