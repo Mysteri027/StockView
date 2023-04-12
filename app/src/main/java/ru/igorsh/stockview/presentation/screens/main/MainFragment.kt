@@ -13,11 +13,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bottomNagigationView =
+        val bottomNavigationView =
             view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         val navController =
             (childFragmentManager.findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment).navController
-        NavigationUI.setupWithNavController(bottomNagigationView, navController)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
     }
 }

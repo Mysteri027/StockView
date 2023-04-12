@@ -1,11 +1,11 @@
 package ru.igorsh.stockview.presentation.screens.splash
 
 import androidx.lifecycle.ViewModel
-import ru.igorsh.stockview.domain.interactor.GetAuthStatusUseCase
+import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
 
 class SplashViewModel(
-    private val getAuthStatusUseCase: GetAuthStatusUseCase
+    private val localStorageInteractor: LocalStorageInteractor,
 ) : ViewModel() {
 
-    fun getAuthStatus() = getAuthStatusUseCase.invoke()
+    fun getAuthStatus() = localStorageInteractor.getAuthStatus()
 }

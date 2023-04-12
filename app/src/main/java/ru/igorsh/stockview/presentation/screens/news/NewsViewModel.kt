@@ -9,21 +9,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import ru.igorsh.stockview.data.network.model.NewsResponse
-import ru.igorsh.stockview.domain.interactor.AddNewsListToDataBaseUseCase
-import ru.igorsh.stockview.domain.interactor.GetNewUseCase
-import ru.igorsh.stockview.domain.interactor.GetNewsListFromDataBaseUseCase
+import ru.igorsh.stockview.domain.interactor.LocalDatabaseInteractor
+import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseGetMapper
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseInsertMapper
 import ru.igorsh.stockview.domain.mapper.NewsResponseMapper
 import ru.igorsh.stockview.domain.model.NewsItem
 
 class NewsViewModel(
-    private val getNewUseCase: GetNewUseCase,
-    private val addNewsListToDataBaseUseCase: AddNewsListToDataBaseUseCase,
-    private val getNewsListFromDataBaseUseCase: GetNewsListFromDataBaseUseCase,
     private val getLocalDataBaseMapper: NewsDatabaseGetMapper,
     private val insertLocalDataBaseMapper: NewsDatabaseInsertMapper,
     private val responseMapper: NewsResponseMapper,
+    private val localDataBaseInteractor: LocalDatabaseInteractor,
+    private val networkInteractor: NetworkInteractor
 
     ) : ViewModel() {
 
@@ -40,7 +38,7 @@ class NewsViewModel(
     private fun getNewsFromAPi() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = getNewUseCase.invoke()
+                val response = networkInteractor.getNews()
                 withContext(Dispatchers.Main) {
                     if (isResponseValid(response)) {
                         val newsList = response.body()!!.news.map {
@@ -71,7 +69,7 @@ class NewsViewModel(
 
     private suspend fun getNewsFromLocalDatabase() {
         withContext(Dispatchers.IO) {
-            val newsList: List<NewsItem> = getNewsListFromDataBaseUseCase.invoke().map {
+            val newsList: List<NewsItem> = localDataBaseInteractor.getNewsListFromDataBase().map {
                 getLocalDataBaseMapper.map(it)
             }
 
@@ -84,10 +82,12 @@ class NewsViewModel(
         }
     }
 
-    // TODO() убрать копии
     private suspend fun insertNewsInLocalDatabase(newsList: List<NewsItem>) {
         withContext(Dispatchers.IO) {
-            addNewsListToDataBaseUseCase.invoke(newsList.map {
+
+            if (newsList.isEmpty()) return@withContext
+
+            localDataBaseInteractor.addNewsListToDataBase(newsList.map {
                 insertLocalDataBaseMapper.map(it)
             })
         }

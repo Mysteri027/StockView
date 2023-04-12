@@ -2,8 +2,10 @@ package ru.igorsh.stockview.domain.interactor
 
 import ru.igorsh.stockview.data.local.UserStorage
 
-class SetAuthStatusUseCase(
+class LocalStorageInteractor(
     private val userStorage: UserStorage
 ) {
-    fun invoke(status: Boolean) = userStorage.set(status)
+    fun getAuthStatus() = userStorage.get()
+
+    fun setAuthStatus(status: Boolean) = userStorage.set(status)
 }

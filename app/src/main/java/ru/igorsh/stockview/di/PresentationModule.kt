@@ -12,29 +12,28 @@ import ru.igorsh.stockview.presentation.screens.splash.SplashViewModel
 val presentationModule = module {
 
     viewModel {
-        LoginViewModel(loginUseCase = get(), setAuthStatusUseCase = get())
+        LoginViewModel(networkInteractor = get(), localStorageInteractor = get())
     }
 
     viewModel {
-        RegistrationViewModel(registerUseCase = get(), setAuthStatusUseCase = get())
+        RegistrationViewModel(networkInteractor = get(), localStorageInteractor = get())
     }
 
     viewModel {
-        SplashViewModel(getAuthStatusUseCase = get())
+        SplashViewModel(localStorageInteractor = get())
     }
 
     viewModel {
-        ProfileViewModel(logoutUseCase = get(), setAuthStatusUseCase = get())
+        ProfileViewModel(networkInteractor = get(), localStorageInteractor = get())
     }
 
     viewModel {
         NewsViewModel(
-            getNewUseCase = get(),
-            addNewsListToDataBaseUseCase = get(),
-            getNewsListFromDataBaseUseCase = get(),
             insertLocalDataBaseMapper = get(),
             getLocalDataBaseMapper = get(),
             responseMapper = get(),
+            localDataBaseInteractor = get(),
+            networkInteractor = get()
         )
     }
 

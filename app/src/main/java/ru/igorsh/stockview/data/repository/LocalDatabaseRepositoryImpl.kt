@@ -15,4 +15,8 @@ class LocalDatabaseRepositoryImpl(
     override suspend fun insertNews(newsList: List<News>) {
         newsDao.insertNews(newsList)
     }
+
+    override suspend fun deleteAllNews() {
+        newsDao.deleteNews()
+    }
 }

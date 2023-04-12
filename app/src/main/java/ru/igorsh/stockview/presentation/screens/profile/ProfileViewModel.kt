@@ -1,16 +1,16 @@
 package ru.igorsh.stockview.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
-import ru.igorsh.stockview.domain.interactor.LogoutUseCase
-import ru.igorsh.stockview.domain.interactor.SetAuthStatusUseCase
+import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
+import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 
 class ProfileViewModel(
-    private val logoutUseCase: LogoutUseCase,
-    private val setAuthStatusUseCase: SetAuthStatusUseCase
-): ViewModel() {
+    private val networkInteractor: NetworkInteractor,
+    private val localStorageInteractor: LocalStorageInteractor,
+) : ViewModel() {
 
     fun logout() {
-        logoutUseCase.invoke()
-        setAuthStatusUseCase.invoke(false)
+        networkInteractor.logOutUser()
+        localStorageInteractor.setAuthStatus(false)
     }
 }
