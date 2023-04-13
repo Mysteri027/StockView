@@ -16,9 +16,5 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         val logoutButton = view.findViewById<Button>(R.id.profile_screen_logout_button)
 
-        logoutButton.setOnClickListener {
-            viewModel.logout()
-        }
-
     }
 }

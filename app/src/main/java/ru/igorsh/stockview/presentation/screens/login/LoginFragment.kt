@@ -12,6 +12,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.domain.model.User
@@ -74,15 +77,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             Toast.makeText(activity, R.string.empty_field_message, Toast.LENGTH_SHORT).show()
         } else {
 
-            val result = viewModel.login(User(email, password))
-            result.addOnCompleteListener {
-                if (result.isSuccessful) {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.login(User(email, password))
+            }
+
+            viewModel.authStatus.observe(viewLifecycleOwner) {
+                if (it) {
                     showTextMessage(R.string.successful_login)
-                    viewModel.setAuthStatus(status = true)
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                 } else {
                     showTextMessage(R.string.unsuccessful_login)
                 }
+
             }
         }
     }

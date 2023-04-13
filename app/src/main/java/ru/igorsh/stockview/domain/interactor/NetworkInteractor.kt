@@ -1,18 +1,18 @@
 package ru.igorsh.stockview.domain.interactor
 
+import ru.igorsh.stockview.data.network.model.auth.AuthRequest
+import ru.igorsh.stockview.data.network.model.auth.RegisterRequest
 import ru.igorsh.stockview.domain.model.User
 import ru.igorsh.stockview.domain.repository.NetworkRepository
-import ru.igorsh.stockview.domain.repository.UserRepository
 
 class NetworkInteractor(
-    private val userRepository: UserRepository,
     private val networkRepository: NetworkRepository,
 ) {
-    suspend fun getNews() = networkRepository.getNews()
+    suspend fun getNews(token: String) = networkRepository.getNews(token)
 
-    fun loginUser(user: User) = userRepository.logInUser(user)
+    suspend fun loginUser(user: User) =
+        networkRepository.login(AuthRequest(user.email, user.password))
 
-    fun logOutUser() = userRepository.logOutUser()
-
-    fun registerUser(user: User) = userRepository.registerUser(user)
+    suspend fun registerUser(user: User) =
+        networkRepository.register(RegisterRequest(user.email, user.password))
 }

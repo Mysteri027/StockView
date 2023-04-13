@@ -1,8 +1,10 @@
 package ru.igorsh.stockview.presentation.screens.login
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
 import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 import ru.igorsh.stockview.domain.model.User
@@ -11,12 +13,31 @@ class LoginViewModel(
     private val networkInteractor: NetworkInteractor,
     private val localStorageInteractor: LocalStorageInteractor,
 ) : ViewModel() {
-    fun login(user: User): Task<AuthResult> {
-        return networkInteractor.loginUser(user)
+
+    private val _authStatus = MutableLiveData<Boolean>()
+    val authStatus: LiveData<Boolean> = _authStatus
+
+    suspend fun login(user: User) {
+        withContext(Dispatchers.IO) {
+            val authResponse = networkInteractor.loginUser(user)
+
+            if (authResponse.isSuccessful && authResponse.code() == 200) {
+                val token = authResponse.body()?.token
+                if (token != null) {
+                    _authStatus.postValue(true)
+                    localStorageInteractor.saveToken(token)
+                    setAuthStatus(true)
+                }
+            }
+        }
     }
 
-    fun setAuthStatus(status: Boolean) {
+    private fun setAuthStatus(status: Boolean) {
         localStorageInteractor.setAuthStatus(status)
+    }
+
+    fun getAuthStatus(): Boolean {
+        return localStorageInteractor.getAuthStatus()
     }
 
     fun isEmptyFields(email: String, password: String): Boolean {

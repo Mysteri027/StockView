@@ -10,6 +10,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.domain.model.User
@@ -68,10 +71,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         if (viewModel.isEmptyFields(email, password)) {
             showTextMessage(R.string.empty_field_message)
         } else {
-            val result = viewModel.register(User(email, password))
-            result.addOnCompleteListener {
-                if (result.isSuccessful) {
-                    viewModel.setAuthStatus(status = true)
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.register(User(email, password))
+            }
+
+            viewModel.authStatus.observe(viewLifecycleOwner) {
+                if (it) {
                     findNavController().navigate(R.id.action_registrationFragment_to_mainFragment)
                 } else {
                     showTextMessage(R.string.unsuccessful_register)

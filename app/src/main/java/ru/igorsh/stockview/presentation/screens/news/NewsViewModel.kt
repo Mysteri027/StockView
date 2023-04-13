@@ -8,8 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-import ru.igorsh.stockview.data.network.model.NewsResponse
+import ru.igorsh.stockview.data.network.model.news.NewsResponseItem
 import ru.igorsh.stockview.domain.interactor.LocalDatabaseInteractor
+import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
 import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseGetMapper
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseInsertMapper
@@ -21,6 +22,7 @@ class NewsViewModel(
     private val insertLocalDataBaseMapper: NewsDatabaseInsertMapper,
     private val responseMapper: NewsResponseMapper,
     private val localDataBaseInteractor: LocalDatabaseInteractor,
+    private val localStorageInteractor: LocalStorageInteractor,
     private val networkInteractor: NetworkInteractor
 
     ) : ViewModel() {
@@ -38,10 +40,11 @@ class NewsViewModel(
     private fun getNewsFromAPi() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = networkInteractor.getNews()
+                val token = localStorageInteractor.getToken()
+                val response = networkInteractor.getNews("Bearer $token")
                 withContext(Dispatchers.Main) {
                     if (isResponseValid(response)) {
-                        val newsList = response.body()!!.news.map {
+                        val newsList = response.body()!!.map {
                             responseMapper.map(it)
                         }
 
@@ -63,7 +66,7 @@ class NewsViewModel(
         }
     }
 
-    private fun isResponseValid(response: Response<NewsResponse>): Boolean {
+    private fun isResponseValid(response: Response<List<NewsResponseItem>>): Boolean {
         return response.code() == 200 && response.isSuccessful
     }
 

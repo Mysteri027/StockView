@@ -24,7 +24,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        ProfileViewModel(networkInteractor = get(), localStorageInteractor = get())
+        ProfileViewModel()
     }
 
     viewModel {
@@ -33,7 +33,8 @@ val presentationModule = module {
             getLocalDataBaseMapper = get(),
             responseMapper = get(),
             localDataBaseInteractor = get(),
-            networkInteractor = get()
+            networkInteractor = get(),
+            localStorageInteractor = get()
         )
     }
 

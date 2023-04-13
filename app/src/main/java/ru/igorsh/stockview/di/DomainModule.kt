@@ -32,6 +32,6 @@ val domainModule = module {
     }
 
     factory {
-        NetworkInteractor(userRepository = get(), networkRepository = get())
+        NetworkInteractor(networkRepository = get())
     }
 }

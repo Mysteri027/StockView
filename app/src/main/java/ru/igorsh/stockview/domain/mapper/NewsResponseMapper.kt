@@ -1,6 +1,6 @@
 package ru.igorsh.stockview.domain.mapper
 
-import ru.igorsh.stockview.data.network.model.NewsResponseItem
+import ru.igorsh.stockview.data.network.model.news.NewsResponseItem
 import ru.igorsh.stockview.domain.mapper.base.Mapper
 import ru.igorsh.stockview.domain.model.NewsItem
 
