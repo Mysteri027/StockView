@@ -17,7 +17,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             if (viewModel.getAuthStatus()) {
                 findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
             } else {
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                findNavController().navigate(R.id.action_splashFragment_to_authFragment)
             }
         }, NAVIGATION_DELAY)
     }
