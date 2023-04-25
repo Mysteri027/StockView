@@ -91,7 +91,11 @@ class AuthFragment : Fragment(R.layout.fragment_login) {
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 )
             } else {
-                changePasswordFieldVisibility(true, R.drawable.eye_off, InputType.TYPE_CLASS_TEXT)
+                changePasswordFieldVisibility(
+                    true,
+                    R.drawable.eye_off,
+                    InputType.TYPE_CLASS_TEXT
+                )
             }
         }
     }
