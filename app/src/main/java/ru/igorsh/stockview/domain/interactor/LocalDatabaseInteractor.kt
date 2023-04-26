@@ -11,7 +11,7 @@ class LocalDatabaseInteractor(
         localDatabaseRepository.insertNews(newsList)
     }
 
-    suspend fun deleteAllNewsFromDataBase() = localDatabaseRepository.getAllNews()
+    suspend fun deleteAllNewsFromDataBase() = localDatabaseRepository.deleteAllNews()
 
 
     suspend fun getNewsListFromDataBase() = localDatabaseRepository.getAllNews()

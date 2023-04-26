@@ -71,7 +71,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         Glide.with(itemView)
-            .load(R.drawable.apple)
+            .load("https://sun1-97.userapi.com/impg/j2nymFIepCai7N99fcJXElgl_EKdbGR_v8DfJQ/_5IZIgOT830.jpg?size=750x750&quality=95&sign=4825dae916b940fccd536ca9e132db25&type=album")
             .transform(RoundedCorners(cornerRadius))
             .into(image)
     }

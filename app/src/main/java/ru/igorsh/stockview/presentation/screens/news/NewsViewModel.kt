@@ -25,7 +25,7 @@ class NewsViewModel(
     private val localStorageInteractor: LocalStorageInteractor,
     private val networkInteractor: NetworkInteractor
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _newsList = MutableLiveData<List<NewsItem>>()
     val newsList: LiveData<List<NewsItem>> = _newsList
@@ -51,6 +51,7 @@ class NewsViewModel(
                         if (newsList.isNotEmpty()) {
                             _newsList.postValue(newsList)
                         }
+                        localDataBaseInteractor.deleteAllNewsFromDataBase()
                         _isEmptyData.postValue(newsList.isEmpty())
 
 
