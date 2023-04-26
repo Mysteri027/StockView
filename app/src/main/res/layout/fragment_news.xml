@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/news_screen_title"
         tools:listitem="@layout/news_item"
-        tools:visibility="gone"/>
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/news_screen_progress_bar"
