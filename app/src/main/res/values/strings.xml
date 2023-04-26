@@ -22,4 +22,9 @@
     <string name="news_description">Как использовать овердрафт физическим и юридическим лицам, и чем он отличается от обычного кредита — в обзоре «РБК Инвестиций»</string>
     <string name="news_image">news image</string>
     <string name="network_error">Загрузка не удалась</string>
+    <string name="apple">Apple</string>
+    <string name="_163_77">163,77</string>
+    <string name="_1_56">-1,56</string>
+    <string name="_0_94">(-0,94%)</string>
+    <string name="company_logo">company_logo</string>
 </resources>
