@@ -36,6 +36,10 @@ val presentationModule = module {
     }
 
     viewModel {
-        SearchViewModel()
+        SearchViewModel(
+            networkInteractor = get(),
+            mapper = get(),
+            localStorageInteractor = get()
+        )
     }
 }

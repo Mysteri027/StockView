@@ -9,32 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.igorsh.stockview.R
-import ru.igorsh.stockview.presentation.model.CompanyItem
+import ru.igorsh.stockview.presentation.model.StockItem
 
 class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
-    private val mockItems = listOf(
-        CompanyItem("Apple", 123.3, 3.3, 1.2, R.color.price_red),
-        CompanyItem("Sber", 1233.3, 343.3, 33.2, R.color.price_green),
-        CompanyItem("Apple", 123.3, 3.3, 1.2, R.color.price_red),
-        CompanyItem("Sber",
-            1233.3, 343.3, 33.2, R.color.price_green),
-        CompanyItem("Apple", 123.3, 3.3, 1.2, R.color.price_red),
-        CompanyItem("Sber", 1233.3, 343.3, 33.2, R.color.price_green),
-        CompanyItem("Apple", 123.3, 3.3, 1.2, R.color.price_red),
-        CompanyItem("Sber", 1233.3, 343.3, 33.2, R.color.price_green),
-        CompanyItem("Sber", 1233.3, 343.3, 33.2, R.color.price_green),
-    )
+    val stockItems = mutableListOf<StockItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.company_item, parent, false)
         return StockViewHolder(view)
     }
 
-    override fun getItemCount(): Int = mockItems.size
+    override fun getItemCount(): Int = stockItems.size
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
-        val item = mockItems[position]
+        val item = stockItems[position]
         holder.bind(item)
     }
 }
@@ -48,7 +37,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val changeInPercent =
         itemView.findViewById<TextView>(R.id.company_item_stock_price_difference_percent)
 
-    fun bind(item: CompanyItem) {
+    fun bind(item: StockItem) {
 
         val cornerRadius =
             itemView.resources.getDimensionPixelSize(R.dimen.value_8dp)

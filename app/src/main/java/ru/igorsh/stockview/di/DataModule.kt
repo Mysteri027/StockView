@@ -13,6 +13,7 @@ import ru.igorsh.stockview.data.local.SharedPrefUserStorage
 import ru.igorsh.stockview.data.local.UserStorage
 import ru.igorsh.stockview.data.network.AuthApi
 import ru.igorsh.stockview.data.network.NewsApi
+import ru.igorsh.stockview.data.network.StockApi
 import ru.igorsh.stockview.data.repository.LocalDatabaseRepositoryImpl
 import ru.igorsh.stockview.data.repository.NetworkRepositoryImpl
 import ru.igorsh.stockview.data.repository.UserRepositoryImpl
@@ -41,6 +42,7 @@ val dataModule = module {
         NetworkRepositoryImpl(
             newsApi = get(),
             authApi = get(),
+            stockApi = get()
         )
     }
 
@@ -61,6 +63,10 @@ val dataModule = module {
 
     factory {
         provideAuthApi(retrofit = get())
+    }
+
+    factory {
+        provideStockApi(retrofit = get())
     }
 
     single {
@@ -92,6 +98,8 @@ fun provideOkHttpClient(): OkHttpClient {
 fun provideNewsApi(retrofit: Retrofit): NewsApi = retrofit.create(NewsApi::class.java)
 
 fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
+
+fun provideStockApi(retrofit: Retrofit): StockApi = retrofit.create(StockApi::class.java)
 
 fun provideNewsDao(database: NewsDatabase) = database.getNewsDao()
 fun provideNewsDatabase(context: Context) = Room.databaseBuilder(

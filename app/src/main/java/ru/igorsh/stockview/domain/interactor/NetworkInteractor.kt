@@ -15,4 +15,9 @@ class NetworkInteractor(
 
     suspend fun registerUser(user: User) =
         networkRepository.register(RegisterRequest(user.email, user.password))
+
+    suspend fun getStockList(token: String) = networkRepository.getAllStocks(token)
+
+    suspend fun getStockByName(name: String, token: String) =
+        networkRepository.getStockByName(name, token)
 }

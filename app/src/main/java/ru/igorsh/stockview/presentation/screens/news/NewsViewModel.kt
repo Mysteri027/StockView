@@ -40,8 +40,8 @@ class NewsViewModel(
     private fun getNewsFromAPi() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val token = localStorageInteractor.getToken()
-                val response = networkInteractor.getNews("Bearer $token")
+                val token = "Bearer ${localStorageInteractor.getToken()}"
+                val response = networkInteractor.getNews(token)
                 withContext(Dispatchers.Main) {
                     if (isResponseValid(response)) {
                         val newsList = response.body()!!.map {
