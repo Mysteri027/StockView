@@ -21,11 +21,14 @@ class SearchViewModel(
     private val _stockList = MutableLiveData<List<StockItem>>()
     val stockList: LiveData<List<StockItem>> = _stockList
 
+    private val _isError = MutableLiveData(false)
+    val isError: LiveData<Boolean> = _isError
+
     init {
         getStockList()
     }
 
-    private fun getStockList() {
+    fun getStockList() {
         viewModelScope.launch(Dispatchers.IO) {
             val token = "Bearer ${localStorageInteractor.getToken()}"
             val response = networkInteractor.getStockList(token)
@@ -36,8 +39,25 @@ class SearchViewModel(
                     mapper.map(it)
                 }
                 _stockList.postValue(stocksList)
+                _isError.postValue(false)
+            } else {
+                _isError.postValue(true)
             }
         }
+    }
 
+    fun getStockByName(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val token = "Bearer ${localStorageInteractor.getToken()}"
+            val response = networkInteractor.getStockByName(name, token)
+
+            if (response.isSuccessful and (response.code() == 200)) {
+                val stock = mapper.map(response.body()!!)
+                val stocksList = listOf(stock)
+                _stockList.postValue(stocksList)
+            } else {
+                _isError.postValue(true)
+            }
+        }
     }
 }

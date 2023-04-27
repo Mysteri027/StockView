@@ -27,4 +27,6 @@
     <string name="_1_56">-1,56</string>
     <string name="_0_94">(-0,94%)</string>
     <string name="company_logo">company_logo</string>
+    <string name="no_found">Не найдено</string>
+    <string name="find">Найти</string>
 </resources>

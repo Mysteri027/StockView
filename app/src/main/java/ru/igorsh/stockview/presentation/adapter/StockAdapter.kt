@@ -46,16 +46,18 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         with(price) {
             text = item.price.toString()
-            setTextColor(itemView.resources.getColor(item.color, null))
         }
 
         with(change) {
-            text = item.change.toString()
+            val value = if (item.change > 0) "+${item.change}" else item.change.toString()
+            text = value.substring(0, 4)
             setTextColor(itemView.resources.getColor(item.color, null))
         }
 
         with(changeInPercent) {
-            text = item.changeInPercent.toString()
+            val value = if (item.changeInPercent > 0) "+${item.changeInPercent}" else item.changeInPercent.toString()
+            text = "${value.substring(0, 4)}%"
+
             setTextColor(itemView.resources.getColor(item.color, null))
         }
 

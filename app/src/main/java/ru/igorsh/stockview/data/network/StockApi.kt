@@ -11,7 +11,7 @@ interface StockApi {
     @GET("api/v1/stock")
     suspend fun getAllStocks(@Header("Authorization") token: String): Response<List<StockResponse>>
 
-    @GET("api/v1/stock/{name}")
+    @GET("api/v1/stock/name/{name}")
     suspend fun getStockByName(
         @Path("name") name: String,
         @Header("Authorization") token: String

@@ -38,7 +38,7 @@
         android:layout_marginStart="@dimen/value_32dp"
         android:layout_marginTop="@dimen/value_16dp"
         android:text="@string/_163_77"
-        android:textColor="@color/yp_red"
+        android:textColor="@color/yp_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/company_item_image"
         app:layout_constraintTop_toBottomOf="@id/company_item_name" />
