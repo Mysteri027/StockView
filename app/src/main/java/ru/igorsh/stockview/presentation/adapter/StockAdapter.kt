@@ -59,8 +59,8 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         with(changeInPercent) {
             val value =
-                if (item.changeInPercent > 0) "+${item.changeInPercent}" else item.changeInPercent.toString()
-            text = "${value}"
+                if (item.changeInPercent > 0) "+${item.changeInPercent}%" else "${item.changeInPercent}%"
+            text = value
 
             setTextColor(itemView.resources.getColor(item.color, null))
         }

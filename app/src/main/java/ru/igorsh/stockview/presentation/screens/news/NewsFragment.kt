@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
+import ru.igorsh.stockview.presentation.adapter.NewsAdapter
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
 

@@ -1,6 +1,5 @@
 package ru.igorsh.stockview.presentation.screens.stock
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -41,7 +40,6 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         priceChangePercent = view.findViewById(R.id.stock_screen_price_change_percent)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun setupUiElements(stockItem: StockItem) {
 
         val cornerRadius = this.resources.getDimensionPixelSize(R.dimen.value_16dp)
@@ -56,13 +54,16 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         price.text = stockItem.price.toString()
 
         val prefix = viewModel.getPriceChangePrefix(stockItem.change)
+
         priceChange.apply {
-            this.text = prefix + stockItem.change.toString()
+            val textValue = prefix + stockItem.change.toString()
+            this.text = textValue
             this.setTextColor(this.resources.getColor(stockItem.color, null))
         }
 
         priceChangePercent.apply {
-            this.text = prefix + stockItem.change.toString() + "%"
+            val textValue = prefix + stockItem.changeInPercent.toString() + "%"
+            this.text = textValue
             this.setTextColor(this.resources.getColor(stockItem.color, null))
         }
     }

@@ -1,4 +1,4 @@
-package ru.igorsh.stockview.presentation.screens.news
+package ru.igorsh.stockview.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.domain.model.NewsItem
 
@@ -41,8 +42,11 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(newsItem: NewsItem) {
 
+        val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.value_8dp)
+
         Glide.with(itemView)
             .load(newsItem.image)
+            .transform(RoundedCorners(cornerRadius))
             .into(image)
 
         title.text = newsItem.title
