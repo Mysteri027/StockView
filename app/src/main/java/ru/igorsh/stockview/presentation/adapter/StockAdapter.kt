@@ -14,6 +14,7 @@ import ru.igorsh.stockview.presentation.model.StockItem
 class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     val stockItems = mutableListOf<StockItem>()
+    var onItemClickListener: ((StockItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.company_item, parent, false)
@@ -24,6 +25,9 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val item = stockItems[position]
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(item)
+        }
         holder.bind(item)
     }
 }
@@ -50,19 +54,20 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         with(change) {
             val value = if (item.change > 0) "+${item.change}" else item.change.toString()
-            text = value.substring(0, 4)
+            text = value
             setTextColor(itemView.resources.getColor(item.color, null))
         }
 
         with(changeInPercent) {
-            val value = if (item.changeInPercent > 0) "+${item.changeInPercent}" else item.changeInPercent.toString()
-            text = "${value.substring(0, 4)}%"
+            val value =
+                if (item.changeInPercent > 0) "+${item.changeInPercent}" else item.changeInPercent.toString()
+            text = "${value}%"
 
             setTextColor(itemView.resources.getColor(item.color, null))
         }
 
         Glide.with(itemView)
-            .load("https://sun1-97.userapi.com/impg/j2nymFIepCai7N99fcJXElgl_EKdbGR_v8DfJQ/_5IZIgOT830.jpg?size=750x750&quality=95&sign=4825dae916b940fccd536ca9e132db25&type=album")
+            .load(item.imageUrl)
             .transform(RoundedCorners(cornerRadius))
             .into(image)
     }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
 import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 import ru.igorsh.stockview.domain.mapper.StockResponseMapper
@@ -34,7 +35,7 @@ class SearchViewModel(
             val response = networkInteractor.getStockList(token)
             Log.d("token", token)
 
-            if (response.isSuccessful and (response.code() == 200)) {
+            if (isResponseValid(response)) {
                 val stocksList = response.body()!!.map {
                     mapper.map(it)
                 }
@@ -51,7 +52,7 @@ class SearchViewModel(
             val token = "Bearer ${localStorageInteractor.getToken()}"
             val response = networkInteractor.getStockByName(name, token)
 
-            if (response.isSuccessful and (response.code() == 200)) {
+            if (isResponseValid(response)) {
                 val stock = mapper.map(response.body()!!)
                 val stocksList = listOf(stock)
                 _stockList.postValue(stocksList)
@@ -59,5 +60,9 @@ class SearchViewModel(
                 _isError.postValue(true)
             }
         }
+    }
+
+    private fun <T> isResponseValid(response: Response<T>): Boolean {
+        return response.isSuccessful and (response.code() == 200)
     }
 }

@@ -25,8 +25,9 @@
     <string name="apple">Apple</string>
     <string name="_163_77">163,77</string>
     <string name="_1_56">-1,56</string>
-    <string name="_0_94">(-0,94%)</string>
+    <string name="_0_94">-0,94%</string>
     <string name="company_logo">company_logo</string>
     <string name="no_found">Не найдено</string>
     <string name="find">Найти</string>
+    <string name="apple_description">Aмериканская корпорация, разработчик персональных и планшетных компьютеров, аудиоплееров, смартфонов, программного обеспечения и цифрового контента. Штаб-квартира расположена в Купертино, штат Калифорния.</string>
 </resources>

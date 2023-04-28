@@ -1,6 +1,7 @@
 package ru.igorsh.stockview.presentation.model
 
 import androidx.annotation.ColorRes
+import java.io.Serializable
 
 data class StockItem(
     val name: String,
@@ -11,4 +12,4 @@ data class StockItem(
     val imageUrl: String,
     val willPriceGoUp: Boolean,
     @ColorRes val color: Int,
-)
+): Serializable

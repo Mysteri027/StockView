@@ -7,6 +7,7 @@ import ru.igorsh.stockview.presentation.screens.news.NewsViewModel
 import ru.igorsh.stockview.presentation.screens.profile.ProfileViewModel
 import ru.igorsh.stockview.presentation.screens.search.SearchViewModel
 import ru.igorsh.stockview.presentation.screens.splash.SplashViewModel
+import ru.igorsh.stockview.presentation.screens.stock.StockViewModel
 
 val presentationModule = module {
 
@@ -41,5 +42,9 @@ val presentationModule = module {
             mapper = get(),
             localStorageInteractor = get()
         )
+    }
+
+    viewModel {
+        StockViewModel()
     }
 }
