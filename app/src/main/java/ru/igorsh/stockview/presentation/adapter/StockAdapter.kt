@@ -43,8 +43,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(item: StockItem) {
 
-        val cornerRadius =
-            itemView.resources.getDimensionPixelSize(R.dimen.value_8dp)
+        val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.value_16dp)
 
         name.text = item.name
 
@@ -61,7 +60,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         with(changeInPercent) {
             val value =
                 if (item.changeInPercent > 0) "+${item.changeInPercent}" else item.changeInPercent.toString()
-            text = "${value}%"
+            text = "${value}"
 
             setTextColor(itemView.resources.getColor(item.color, null))
         }
