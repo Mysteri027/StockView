@@ -45,11 +45,14 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.value_16dp)
 
+        Glide.with(itemView)
+            .load(item.imageUrl)
+            .transform(RoundedCorners(cornerRadius))
+            .into(image)
+
         name.text = item.name
 
-        with(price) {
-            text = item.price.toString()
-        }
+        price.text = item.price.toString()
 
         with(change) {
             val value = if (item.change > 0) "+${item.change}" else item.change.toString()
@@ -64,10 +67,5 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             setTextColor(itemView.resources.getColor(item.color, null))
         }
-
-        Glide.with(itemView)
-            .load(item.imageUrl)
-            .transform(RoundedCorners(cornerRadius))
-            .into(image)
     }
 }

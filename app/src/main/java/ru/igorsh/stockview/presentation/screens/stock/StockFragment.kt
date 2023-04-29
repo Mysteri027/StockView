@@ -25,6 +25,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        @Suppress("DEPRECATION")
         val stock: StockItem = arguments?.getSerializable(STOCK_KEY) as StockItem
 
         initUiElements(view)
