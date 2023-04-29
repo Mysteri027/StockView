@@ -17,4 +17,8 @@ interface NetworkRepository {
     suspend fun getAllStocks(token: String): Response<List<StockResponse>>
 
     suspend fun getStockByName(name: String, token: String): Response<StockResponse>
+
+    suspend fun addToFavorite(name: String, token: String)
+
+    suspend fun deleteFromFavorite(name: String, token: String)
 }

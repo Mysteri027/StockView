@@ -23,9 +23,18 @@ class NetworkRepositoryImpl(
     override suspend fun register(registerRequest: RegisterRequest): Response<AuthResponse> =
         authApi.register(registerRequest)
 
-    override suspend fun getAllStocks(token: String): Response<List<StockResponse>> = stockApi.getAllStocks(token)
+    override suspend fun getAllStocks(token: String): Response<List<StockResponse>> =
+        stockApi.getAllStocks(token)
 
     override suspend fun getStockByName(name: String, token: String): Response<StockResponse> =
         stockApi.getStockByName(name, token)
+
+    override suspend fun addToFavorite(name: String, token: String) {
+        stockApi.addToFavorite(name, token)
+    }
+
+    override suspend fun deleteFromFavorite(name: String, token: String) {
+        stockApi.deleteFromFavorite(name, token)
+    }
 
 }

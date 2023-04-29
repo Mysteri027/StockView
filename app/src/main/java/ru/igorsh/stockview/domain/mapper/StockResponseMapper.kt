@@ -16,7 +16,9 @@ class StockResponseMapper : Mapper<StockResponse, StockItem>() {
             changeInPercent = changeInPercent,
             imageUrl = imageUrl,
             willPriceGoUp = willPriceGoUp,
-            color = if (change > 0) R.color.price_green else R.color.price_red
+            color = if (change > 0) R.color.price_green else R.color.price_red,
+            isFavorite = isFavorite,
+            isFavoriteColor = if (isFavorite) R.color.favorite_color else R.color.yp_white
         )
     }
 }

@@ -15,6 +15,7 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     val stockItems = mutableListOf<StockItem>()
     var onItemClickListener: ((StockItem) -> Unit)? = null
+    var onFavoriteClickListener: ((StockItem, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.company_item, parent, false)
@@ -25,9 +26,16 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         val item = stockItems[position]
+
         holder.itemView.setOnClickListener {
             onItemClickListener?.invoke(item)
         }
+
+        holder.itemView.findViewById<ImageView>(R.id.company_item_is_favorite_image)
+            .setOnClickListener {
+                onFavoriteClickListener?.invoke(item, position)
+            }
+
         holder.bind(item)
     }
 }
@@ -40,7 +48,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val change = itemView.findViewById<TextView>(R.id.company_item_stock_price_difference)
     private val changeInPercent =
         itemView.findViewById<TextView>(R.id.company_item_stock_price_difference_percent)
-
+    private val favoriteStar = itemView.findViewById<ImageView>(R.id.company_item_is_favorite_image)
     fun bind(item: StockItem) {
 
         val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.value_16dp)
@@ -67,5 +75,7 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             setTextColor(itemView.resources.getColor(item.color, null))
         }
+
+        favoriteStar.setColorFilter(itemView.resources.getColor(item.isFavoriteColor, null))
     }
 }

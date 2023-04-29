@@ -65,4 +65,18 @@ class SearchViewModel(
     private fun <T> isResponseValid(response: Response<T>): Boolean {
         return response.isSuccessful and (response.code() == 200)
     }
+
+    fun addToFavorite(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val token = "Bearer ${localStorageInteractor.getToken()}"
+            networkInteractor.addToFavorite(name, token)
+        }
+    }
+
+    fun deleteFromFavorite(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val token = "Bearer ${localStorageInteractor.getToken()}"
+            networkInteractor.deleteFromFavorite(name, token)
+        }
+    }
 }

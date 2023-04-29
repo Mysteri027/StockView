@@ -22,7 +22,11 @@ val presentationModule = module {
     }
 
     viewModel {
-        ProfileViewModel()
+        ProfileViewModel(
+            networkInteractor = get(),
+            mapper = get(),
+            localStorageInteractor = get()
+        )
     }
 
     viewModel {

@@ -18,6 +18,7 @@
     <color name="yp_background">#801A1B22</color>
 
 
+    <color name="favorite_color">#FFEB3B</color>
     <color name="price_red">#FF0000</color>
     <color name="price_green">#66CC00</color>
 </resources>

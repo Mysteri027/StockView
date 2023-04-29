@@ -8,4 +8,5 @@ data class StockResponse(
     val changeInPercent: Double,
     val imageUrl: String,
     val willPriceGoUp: Boolean,
+    val isFavorite: Boolean
 )

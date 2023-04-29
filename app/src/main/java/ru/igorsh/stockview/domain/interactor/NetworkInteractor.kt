@@ -20,4 +20,11 @@ class NetworkInteractor(
 
     suspend fun getStockByName(name: String, token: String) =
         networkRepository.getStockByName(name, token)
+
+    suspend fun addToFavorite(name: String, token: String) =
+        networkRepository.addToFavorite(name, token)
+
+    suspend fun deleteFromFavorite(name: String, token: String) {
+        networkRepository.deleteFromFavorite(name, token)
+    }
 }

@@ -12,4 +12,6 @@ data class StockItem(
     val imageUrl: String,
     val willPriceGoUp: Boolean,
     @ColorRes val color: Int,
+    var isFavorite: Boolean,
+    @ColorRes val isFavoriteColor: Int,
 ): Serializable

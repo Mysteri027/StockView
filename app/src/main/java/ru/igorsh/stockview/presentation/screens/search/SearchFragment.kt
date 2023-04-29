@@ -32,11 +32,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val searchButton = view.findViewById<ImageButton>(R.id.search_screen_search_button)
 
         val stockAdapter = StockAdapter()
+
         stockAdapter.onItemClickListener = {
             findNavController().navigate(
                 R.id.action_searchFragment_to_stockFragment,
                 bundleOf(StockFragment.STOCK_KEY to it)
             )
+        }
+
+        stockAdapter.onFavoriteClickListener = { stock, position ->
+            if (stock.isFavorite) {
+                viewModel.deleteFromFavorite(stock.name)
+            } else {
+                viewModel.addToFavorite(stock.name)
+            }
         }
 
         stocksList.apply {
