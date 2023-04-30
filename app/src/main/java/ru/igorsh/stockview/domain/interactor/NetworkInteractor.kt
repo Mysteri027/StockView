@@ -2,6 +2,7 @@ package ru.igorsh.stockview.domain.interactor
 
 import ru.igorsh.stockview.data.network.model.auth.AuthRequest
 import ru.igorsh.stockview.data.network.model.auth.RegisterRequest
+import ru.igorsh.stockview.domain.model.TimelineData
 import ru.igorsh.stockview.domain.model.User
 import ru.igorsh.stockview.domain.repository.NetworkRepository
 
@@ -26,5 +27,13 @@ class NetworkInteractor(
 
     suspend fun deleteFromFavorite(name: String, token: String) {
         networkRepository.deleteFromFavorite(name, token)
+    }
+
+    suspend fun getTimelineData(ticker: String, startDate: String, endDate: String): TimelineData {
+        val timelineData = networkRepository.getHistoryData(ticker, startDate, endDate)
+        if (timelineData != null) {
+            return timelineData
+        }
+        return TimelineData(emptyList(), emptyList())
     }
 }

@@ -8,6 +8,7 @@ import ru.igorsh.stockview.data.network.model.auth.AuthRequest
 import ru.igorsh.stockview.data.network.model.auth.AuthResponse
 import ru.igorsh.stockview.data.network.model.auth.RegisterRequest
 import ru.igorsh.stockview.data.network.model.stock.StockResponse
+import ru.igorsh.stockview.domain.model.TimelineData
 import ru.igorsh.stockview.domain.repository.NetworkRepository
 
 class NetworkRepositoryImpl(
@@ -35,6 +36,28 @@ class NetworkRepositoryImpl(
 
     override suspend fun deleteFromFavorite(name: String, token: String) {
         stockApi.deleteFromFavorite(name, token)
+    }
+
+    override suspend fun getHistoryData(
+        ticker: String,
+        startDate: String,
+        endDate: String
+    ): TimelineData? {
+        val response = stockApi.getHistoricalData(ticker, startDate, endDate)
+
+        var timelineData: TimelineData? = null
+
+        if (response.isSuccessful) {
+            val data = response.body()
+            val result = data?.chart?.result?.get(0)
+            val time = result?.timestamp
+
+            val date = result?.indicators?.quote!![0].close
+
+            timelineData = TimelineData(time, date)
+        }
+
+        return timelineData
     }
 
 }

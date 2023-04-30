@@ -6,6 +6,7 @@ import ru.igorsh.stockview.data.network.model.auth.AuthResponse
 import ru.igorsh.stockview.data.network.model.auth.RegisterRequest
 import ru.igorsh.stockview.data.network.model.news.NewsResponseItem
 import ru.igorsh.stockview.data.network.model.stock.StockResponse
+import ru.igorsh.stockview.domain.model.TimelineData
 
 interface NetworkRepository {
     suspend fun getNews(token: String): Response<List<NewsResponseItem>>
@@ -21,4 +22,10 @@ interface NetworkRepository {
     suspend fun addToFavorite(name: String, token: String)
 
     suspend fun deleteFromFavorite(name: String, token: String)
+
+    suspend fun getHistoryData(
+        ticker: String,
+        startDate: String,
+        endDate: String,
+    ): TimelineData?
 }

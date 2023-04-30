@@ -10,6 +10,7 @@ class StockResponseMapper : Mapper<StockResponse, StockItem>() {
     override fun map(from: StockResponse): StockItem = from.run {
         return StockItem(
             name = name,
+            ticker = ticker,
             companyDescription = companyDescription,
             price = price,
             change = change,

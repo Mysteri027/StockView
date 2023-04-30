@@ -2,6 +2,7 @@ package ru.igorsh.stockview.data.network.model.stock
 
 data class StockResponse(
     val name: String,
+    val ticker: String,
     val companyDescription: String,
     val price: Double,
     val change: Double,

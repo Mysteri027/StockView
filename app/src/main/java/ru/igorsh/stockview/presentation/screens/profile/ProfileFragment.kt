@@ -34,12 +34,16 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             )
         }
 
-        stockAdapter.onFavoriteClickListener = { stock, _ ->
+        stockAdapter.onFavoriteClickListener = { stock, position ->
             if (stock.isFavorite) {
                 viewModel.deleteFromFavorite(stock.name)
             } else {
                 viewModel.addToFavorite(stock.name)
             }
+
+            stockAdapter.stockItems.remove(stock)
+            stockAdapter.notifyItemRemoved(position)
+            stockAdapter.notifyItemRangeChanged(position, stockAdapter.itemCount)
         }
 
         stockList.apply {

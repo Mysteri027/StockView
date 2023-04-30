@@ -49,6 +49,8 @@ val presentationModule = module {
     }
 
     viewModel {
-        StockViewModel()
+        StockViewModel(
+            networkInteractor = get()
+        )
     }
 }

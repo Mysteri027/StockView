@@ -5,6 +5,7 @@ import java.io.Serializable
 
 data class StockItem(
     val name: String,
+    val ticker: String,
     val companyDescription: String,
     val price: Double,
     val change: Double,
