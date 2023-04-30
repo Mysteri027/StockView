@@ -79,5 +79,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/search_screen_progress_bar"
+        android:layout_width="@dimen/value_64dp"
+        android:layout_height="@dimen/value_64dp"
+        android:indeterminateTint="@color/yp_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_screen_search_field" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,10 +39,6 @@ class NetworkInteractor(
     }
 
     suspend fun getTimelineData(ticker: String, startDate: String, endDate: String): TimelineData {
-        val timelineData = networkRepository.getHistoryData(ticker, startDate, endDate)
-        if (timelineData != null) {
-            return timelineData
-        }
-        return TimelineData(emptyList(), emptyList())
+        return networkRepository.getHistoryData(ticker, startDate, endDate)
     }
 }

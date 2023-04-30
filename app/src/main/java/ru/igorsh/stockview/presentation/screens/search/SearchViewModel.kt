@@ -23,11 +23,15 @@ class SearchViewModel(
     private val _isError = MutableLiveData(false)
     val isError: LiveData<Boolean> = _isError
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     init {
         getStockList()
     }
 
     fun getStockList() {
+        _isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             val token = "Bearer ${localStorageInteractor.getToken()}"
             val data = networkInteractor.getStockList(token)
@@ -41,10 +45,13 @@ class SearchViewModel(
             } else {
                 _isError.postValue(true)
             }
+
+            _isLoading.postValue(false)
         }
     }
 
     fun getStockByName(name: String) {
+        _isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             val token = "Bearer ${localStorageInteractor.getToken()}"
             val stockItem = networkInteractor.getStockByName(name, token)
@@ -55,6 +62,8 @@ class SearchViewModel(
             } else {
                 _isError.postValue(true)
             }
+
+            _isLoading.postValue(false)
         }
     }
 

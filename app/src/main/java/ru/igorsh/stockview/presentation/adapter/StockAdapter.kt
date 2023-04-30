@@ -15,7 +15,7 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     val stockUiModels = mutableListOf<StockUiModel>()
     var onItemClickListener: ((StockUiModel) -> Unit)? = null
-    var onFavoriteClickListener: ((StockUiModel) -> Unit)? = null
+    var onFavoriteClickListener: ((StockUiModel, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.company_item, parent, false)
@@ -33,7 +33,7 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
         holder.itemView.findViewById<ImageView>(R.id.company_item_is_favorite_image)
             .setOnClickListener {
-                onFavoriteClickListener?.invoke(item)
+                onFavoriteClickListener?.invoke(item, position)
                 holder.updateColor(item.isFavorite)
             }
 

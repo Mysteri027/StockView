@@ -19,12 +19,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModel()
 
+    private lateinit var stockList: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val stockList = view.findViewById<RecyclerView>(R.id.favorite_screen_list)
-        val swipeRefreshLayout =
-            view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayoutFavorites)
+        stockList = view.findViewById(R.id.favorite_screen_list)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutFavorites)
+
         val stockAdapter = StockAdapter()
 
         stockAdapter.onItemClickListener = {

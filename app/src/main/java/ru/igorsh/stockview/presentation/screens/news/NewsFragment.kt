@@ -16,12 +16,15 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     private val viewModel: NewsViewModel by viewModel()
 
+    private lateinit var newsList: RecyclerView
+    private lateinit var progressBar: ProgressBar
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val newsList = view.findViewById<RecyclerView>(R.id.news_screen_news_list)
-        val progressBar = view.findViewById<ProgressBar>(R.id.news_screen_progress_bar)
+        newsList = view.findViewById(R.id.news_screen_news_list)
+        progressBar = view.findViewById(R.id.news_screen_progress_bar)
         val newsListAdapter = NewsAdapter()
 
         newsListAdapter.clickListener = { newsItem ->

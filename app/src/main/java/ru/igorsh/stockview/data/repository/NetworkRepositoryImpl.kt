@@ -79,22 +79,20 @@ class NetworkRepositoryImpl(
         ticker: String,
         startDate: String,
         endDate: String
-    ): TimelineData? {
+    ): TimelineData {
         val response = stockApi.getHistoricalData(ticker, startDate, endDate)
 
-        var timelineData: TimelineData? = null
-
-        if (response.isSuccessful) {
+        if (response.isValid()) {
             val data = response.body()
             val result = data?.chart?.result?.get(0)
             val time = result?.timestamp
 
             val date = result?.indicators?.quote!![0].close
 
-            timelineData = TimelineData(time, date)
+            return TimelineData(time, date)
         }
 
-        return timelineData
+        return TimelineData(listOf(), listOf())
     }
 
     private fun <T> Response<T>.isValid(): Boolean {

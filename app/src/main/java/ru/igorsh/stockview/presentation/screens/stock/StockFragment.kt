@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.presentation.model.StockUiModel
+import ru.igorsh.stockview.presentation.utils.MyXAxisValueFormatter
 import java.sql.Timestamp
 
 
@@ -38,7 +40,11 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         initUiElements(view)
         setupUiElements(stock)
 
-        viewModel.getTimelineData(stock.ticker, "1525022142", "1682788542")
+        viewModel.getTimelineData(
+            ticker = stock.ticker,
+            startDate = "1525022142",
+            endDate = "1682788542"
+        )
 
         viewModel.timelineData.observe(viewLifecycleOwner) {
             val lineEntry = arrayListOf<Entry>()
@@ -49,16 +55,14 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
                 lineEntry.add(Entry(it.time[i].toFloat(), it.prices!![i].toFloat()))
             }
 
-            val xAxisLabel = ArrayList<String>()
-            xAxisLabel.add("1")
-            xAxisLabel.add("7")
-            xAxisLabel.add("14")
-            xAxisLabel.add("21")
-            xAxisLabel.add("28")
-            xAxisLabel.add("30")
-
             val lineDataSet = LineDataSet(lineEntry, "${stock.name}  price")
             lineDataSet.color = resources.getColor(R.color.yp_black, null)
+
+            val xAxis: XAxis = chart.xAxis
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.labelRotationAngle = (-45).toFloat()
+            xAxis.valueFormatter = MyXAxisValueFormatter()
 
             val data = LineData(lineDataSet)
             chart.data = data

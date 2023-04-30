@@ -24,5 +24,5 @@ interface NetworkRepository {
         ticker: String,
         startDate: String,
         endDate: String,
-    ): TimelineData?
+    ): TimelineData
 }
