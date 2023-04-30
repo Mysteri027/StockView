@@ -3,7 +3,7 @@ package ru.igorsh.stockview.presentation.model
 import androidx.annotation.ColorRes
 import java.io.Serializable
 
-data class StockItem(
+data class StockUiModel(
     val name: String,
     val ticker: String,
     val companyDescription: String,

@@ -13,7 +13,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
-import ru.igorsh.stockview.presentation.model.StockItem
+import ru.igorsh.stockview.presentation.model.StockUiModel
 import java.sql.Timestamp
 
 
@@ -33,7 +33,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         super.onViewCreated(view, savedInstanceState)
 
         @Suppress("DEPRECATION")
-        val stock: StockItem = arguments?.getSerializable(STOCK_KEY) as StockItem
+        val stock: StockUiModel = arguments?.getSerializable(STOCK_KEY) as StockUiModel
 
         initUiElements(view)
         setupUiElements(stock)
@@ -76,31 +76,31 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         chart = view.findViewById(R.id.stock_screen_chart)
     }
 
-    private fun setupUiElements(stockItem: StockItem) {
+    private fun setupUiElements(stockUiModel: StockUiModel) {
 
         val cornerRadius = this.resources.getDimensionPixelSize(R.dimen.value_16dp)
 
         Glide.with(this)
-            .load(stockItem.imageUrl)
+            .load(stockUiModel.imageUrl)
             .transform(RoundedCorners(cornerRadius))
             .into(image)
 
-        name.text = stockItem.name
-        description.text = stockItem.companyDescription
-        price.text = stockItem.price.toString()
+        name.text = stockUiModel.name
+        description.text = stockUiModel.companyDescription
+        price.text = stockUiModel.price.toString()
 
-        val prefix = viewModel.getPriceChangePrefix(stockItem.change)
+        val prefix = viewModel.getPriceChangePrefix(stockUiModel.change)
 
         priceChange.apply {
-            val textValue = prefix + stockItem.change.toString()
+            val textValue = prefix + stockUiModel.change.toString()
             this.text = textValue
-            this.setTextColor(this.resources.getColor(stockItem.color, null))
+            this.setTextColor(this.resources.getColor(stockUiModel.color, null))
         }
 
         priceChangePercent.apply {
-            val textValue = prefix + stockItem.changeInPercent.toString() + "%"
+            val textValue = prefix + stockUiModel.changeInPercent.toString() + "%"
             this.text = textValue
-            this.setTextColor(this.resources.getColor(stockItem.color, null))
+            this.setTextColor(this.resources.getColor(stockUiModel.color, null))
         }
     }
 

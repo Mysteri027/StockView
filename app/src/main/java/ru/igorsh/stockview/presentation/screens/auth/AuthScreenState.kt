@@ -16,21 +16,18 @@ class AuthScreenManager(
         withContext(Dispatchers.IO) {
             val user = User(email, password)
 
-            val authResponse = when (state) {
+            val token = when (state) {
                 AuthScreenState.LOGIN_SCREEN -> networkInteractor.loginUser(user)
                 AuthScreenState.REGISTER_SCREEN -> networkInteractor.registerUser(user)
             }
-
-            if (authResponse.isSuccessful && authResponse.code() == 200) {
-                val token = authResponse.body()?.token
-                if (token != null) {
-                    localStorageInteractor.saveToken(token)
-                    localStorageInteractor.setAuthStatus(true)
-                }
+            if (token != "") {
+                localStorageInteractor.saveToken(token)
+                localStorageInteractor.setAuthStatus(true)
             }
         }
     }
 }
+
 
 enum class AuthScreenState {
     LOGIN_SCREEN,

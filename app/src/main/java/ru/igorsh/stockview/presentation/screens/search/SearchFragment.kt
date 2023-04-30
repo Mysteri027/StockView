@@ -15,7 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.presentation.adapter.StockAdapter
-import ru.igorsh.stockview.presentation.model.StockItem
+import ru.igorsh.stockview.presentation.model.StockUiModel
 import ru.igorsh.stockview.presentation.screens.stock.StockFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -74,9 +74,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateStockList(newList: List<StockItem>, adapter: StockAdapter) {
-        adapter.stockItems.clear()
-        adapter.stockItems.addAll(newList)
+    fun updateStockList(newList: List<StockUiModel>, adapter: StockAdapter) {
+        adapter.stockUiModels.clear()
+        adapter.stockUiModels.addAll(newList)
         adapter.notifyDataSetChanged()
     }
 }

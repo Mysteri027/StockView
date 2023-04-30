@@ -6,8 +6,8 @@ import ru.igorsh.stockview.domain.interactor.LocalStorageInteractor
 import ru.igorsh.stockview.domain.interactor.NetworkInteractor
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseGetMapper
 import ru.igorsh.stockview.domain.mapper.NewsDatabaseInsertMapper
-import ru.igorsh.stockview.domain.mapper.NewsResponseMapper
-import ru.igorsh.stockview.domain.mapper.StockResponseMapper
+import ru.igorsh.stockview.domain.mapper.NewsMapper
+import ru.igorsh.stockview.domain.mapper.StockItemMapper
 
 
 val domainModule = module {
@@ -21,11 +21,11 @@ val domainModule = module {
     }
 
     factory {
-        NewsResponseMapper()
+        NewsMapper()
     }
 
     factory {
-        StockResponseMapper()
+        StockItemMapper()
     }
 
     factory {

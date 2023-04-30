@@ -11,15 +11,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.igorsh.stockview.data.database.NewsDatabase
 import ru.igorsh.stockview.data.local.SharedPrefUserStorage
 import ru.igorsh.stockview.data.local.UserStorage
+import ru.igorsh.stockview.data.mapper.NewsResponseMapper
+import ru.igorsh.stockview.data.mapper.StockResponseMapper
 import ru.igorsh.stockview.data.network.AuthApi
 import ru.igorsh.stockview.data.network.NewsApi
 import ru.igorsh.stockview.data.network.StockApi
 import ru.igorsh.stockview.data.repository.LocalDatabaseRepositoryImpl
 import ru.igorsh.stockview.data.repository.NetworkRepositoryImpl
-import ru.igorsh.stockview.data.repository.UserRepositoryImpl
 import ru.igorsh.stockview.domain.repository.LocalDatabaseRepository
 import ru.igorsh.stockview.domain.repository.NetworkRepository
-import ru.igorsh.stockview.domain.repository.UserRepository
 
 private const val BASE_URL = "http://10.0.2.2:8080/"
 
@@ -34,18 +34,23 @@ val dataModule = module {
         SharedPrefUserStorage(context = get())
     }
 
-    single<UserRepository> {
-        UserRepositoryImpl(firebaseAuth = get())
-    }
-
     single<NetworkRepository> {
         NetworkRepositoryImpl(
             newsApi = get(),
             authApi = get(),
-            stockApi = get()
+            stockApi = get(),
+            newsResponseMapper = get(),
+            stockResponseMapper = get()
         )
     }
 
+    factory {
+        StockResponseMapper()
+    }
+
+    factory {
+        NewsResponseMapper()
+    }
     single<LocalDatabaseRepository> {
         LocalDatabaseRepositoryImpl(newsDao = get())
     }

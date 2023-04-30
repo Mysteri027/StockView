@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.presentation.adapter.StockAdapter
-import ru.igorsh.stockview.presentation.model.StockItem
+import ru.igorsh.stockview.presentation.model.StockUiModel
 import ru.igorsh.stockview.presentation.screens.stock.StockFragment
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
@@ -41,7 +41,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 viewModel.addToFavorite(stock.name)
             }
 
-            stockAdapter.stockItems.remove(stock)
+            stockAdapter.stockUiModels.remove(stock)
             stockAdapter.notifyItemRemoved(position)
             stockAdapter.notifyItemRangeChanged(position, stockAdapter.itemCount)
         }
@@ -62,9 +62,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateStockList(newList: List<StockItem>, adapter: StockAdapter) {
-        adapter.stockItems.clear()
-        adapter.stockItems.addAll(newList)
+    fun updateStockList(newList: List<StockUiModel>, adapter: StockAdapter) {
+        adapter.stockUiModels.clear()
+        adapter.stockUiModels.addAll(newList)
         adapter.notifyDataSetChanged()
     }
 }
