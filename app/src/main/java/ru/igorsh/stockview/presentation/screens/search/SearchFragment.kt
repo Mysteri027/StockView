@@ -40,11 +40,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             )
         }
 
-        stockAdapter.onFavoriteClickListener = { stock, position ->
+        stockAdapter.onFavoriteClickListener = { stock ->
             if (stock.isFavorite) {
                 viewModel.deleteFromFavorite(stock.name)
+                stock.isFavorite = false
             } else {
                 viewModel.addToFavorite(stock.name)
+                stock.isFavorite = true
             }
         }
 

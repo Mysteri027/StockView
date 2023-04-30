@@ -15,7 +15,7 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
     val stockUiModels = mutableListOf<StockUiModel>()
     var onItemClickListener: ((StockUiModel) -> Unit)? = null
-    var onFavoriteClickListener: ((StockUiModel, Int) -> Unit)? = null
+    var onFavoriteClickListener: ((StockUiModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.company_item, parent, false)
@@ -33,7 +33,8 @@ class StockAdapter : RecyclerView.Adapter<StockViewHolder>() {
 
         holder.itemView.findViewById<ImageView>(R.id.company_item_is_favorite_image)
             .setOnClickListener {
-                onFavoriteClickListener?.invoke(item, position)
+                onFavoriteClickListener?.invoke(item)
+                holder.updateColor(item.isFavorite)
             }
 
         holder.bind(item)
@@ -77,5 +78,13 @@ class StockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         favoriteStar.setColorFilter(itemView.resources.getColor(item.isFavoriteColor, null))
+    }
+
+    fun updateColor(isFavorite: Boolean) {
+        if (!isFavorite) {
+            favoriteStar.setColorFilter(itemView.resources.getColor(R.color.yp_white, null))
+        } else {
+            favoriteStar.setColorFilter(itemView.resources.getColor(R.color.favorite_color, null))
+        }
     }
 }

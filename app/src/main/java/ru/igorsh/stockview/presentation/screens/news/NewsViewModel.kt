@@ -46,10 +46,13 @@ class NewsViewModel(
             if (newsList.isNotEmpty()) {
                 _newsList.postValue(newsList)
                 _isEmptyData.postValue(false)
-                localDataBaseInteractor.getNewsListFromDataBase()
+
+                localDataBaseInteractor.deleteAllNewsFromDataBase()
+
                 insertNewsInLocalDatabase(newsList)
             } else {
                 _isEmptyData.postValue(true)
+
                 getNewsFromLocalDatabase()
             }
         }
