@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -15,21 +16,29 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.presentation.adapter.StockAdapter
-import ru.igorsh.stockview.presentation.model.StockItem
+import ru.igorsh.stockview.presentation.model.StockUiModel
 import ru.igorsh.stockview.presentation.screens.stock.StockFragment
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val viewModel: SearchViewModel by viewModel()
 
+    private lateinit var stocksList: RecyclerView
+    private lateinit var searchField: EditText
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var notFoundMessage: TextView
+    private lateinit var searchButton: ImageButton
+    private lateinit var progressBar: ProgressBar
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val stocksList = view.findViewById<RecyclerView>(R.id.search_screen_stocks_list)
-        val searchField = view.findViewById<EditText>(R.id.search_screen_search_field)
-        val swipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
-        val notFoundMessage = view.findViewById<TextView>(R.id.search_screen_not_found_message)
-        val searchButton = view.findViewById<ImageButton>(R.id.search_screen_search_button)
+        stocksList = view.findViewById(R.id.search_screen_stocks_list)
+        searchField = view.findViewById(R.id.search_screen_search_field)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        notFoundMessage = view.findViewById(R.id.search_screen_not_found_message)
+        searchButton = view.findViewById(R.id.search_screen_search_button)
+        progressBar = view.findViewById(R.id.search_screen_progress_bar)
 
         val stockAdapter = StockAdapter()
 
@@ -40,11 +49,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             )
         }
 
-        stockAdapter.onFavoriteClickListener = { stock, position ->
+        stockAdapter.onFavoriteClickListener = { stock, _ ->
             if (stock.isFavorite) {
                 viewModel.deleteFromFavorite(stock.name)
+                stock.isFavorite = false
             } else {
                 viewModel.addToFavorite(stock.name)
+                stock.isFavorite = true
             }
         }
 
@@ -63,6 +74,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             notFoundMessage.visibility = if (it) View.VISIBLE else View.GONE
         }
 
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            progressBar.visibility = if (it) View.VISIBLE else View.GONE
+            stocksList.visibility = if (it) View.GONE else View.VISIBLE
+        }
+
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
             viewModel.getStockList()
@@ -74,9 +90,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateStockList(newList: List<StockItem>, adapter: StockAdapter) {
-        adapter.stockItems.clear()
-        adapter.stockItems.addAll(newList)
+    fun updateStockList(newList: List<StockUiModel>, adapter: StockAdapter) {
+        adapter.stockUiModels.clear()
+        adapter.stockUiModels.addAll(newList)
         adapter.notifyDataSetChanged()
     }
 }

@@ -10,11 +10,13 @@ import ru.igorsh.stockview.R
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bottomNavigationView =
-            view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView =
+            view.findViewById(R.id.bottomNavigationView)
 
         val navController =
             (childFragmentManager.findFragmentById(R.id.bottom_nav_host_fragment) as NavHostFragment).navController

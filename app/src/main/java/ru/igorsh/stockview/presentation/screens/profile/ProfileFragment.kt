@@ -12,19 +12,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
 import ru.igorsh.stockview.presentation.adapter.StockAdapter
-import ru.igorsh.stockview.presentation.model.StockItem
+import ru.igorsh.stockview.presentation.model.StockUiModel
 import ru.igorsh.stockview.presentation.screens.stock.StockFragment
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModel()
 
+    private lateinit var stockList: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val stockList = view.findViewById<RecyclerView>(R.id.favorite_screen_list)
-        val swipeRefreshLayout =
-            view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayoutFavorites)
+        stockList = view.findViewById(R.id.favorite_screen_list)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayoutFavorites)
+
         val stockAdapter = StockAdapter()
 
         stockAdapter.onItemClickListener = {
@@ -41,7 +43,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 viewModel.addToFavorite(stock.name)
             }
 
-            stockAdapter.stockItems.remove(stock)
+            stockAdapter.stockUiModels.remove(stock)
             stockAdapter.notifyItemRemoved(position)
             stockAdapter.notifyItemRangeChanged(position, stockAdapter.itemCount)
         }
@@ -62,9 +64,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateStockList(newList: List<StockItem>, adapter: StockAdapter) {
-        adapter.stockItems.clear()
-        adapter.stockItems.addAll(newList)
+    fun updateStockList(newList: List<StockUiModel>, adapter: StockAdapter) {
+        adapter.stockUiModels.clear()
+        adapter.stockUiModels.addAll(newList)
         adapter.notifyDataSetChanged()
     }
 }

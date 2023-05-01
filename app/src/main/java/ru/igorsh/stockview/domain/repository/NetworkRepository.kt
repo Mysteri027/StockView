@@ -1,23 +1,20 @@
 package ru.igorsh.stockview.domain.repository
 
-import retrofit2.Response
 import ru.igorsh.stockview.data.network.model.auth.AuthRequest
-import ru.igorsh.stockview.data.network.model.auth.AuthResponse
 import ru.igorsh.stockview.data.network.model.auth.RegisterRequest
-import ru.igorsh.stockview.data.network.model.news.NewsResponseItem
-import ru.igorsh.stockview.data.network.model.stock.StockResponse
+import ru.igorsh.stockview.domain.model.NewsItem
+import ru.igorsh.stockview.domain.model.StockItem
 import ru.igorsh.stockview.domain.model.TimelineData
 
 interface NetworkRepository {
-    suspend fun getNews(token: String): Response<List<NewsResponseItem>>
+    suspend fun getNews(token: String): List<NewsItem>
 
-    suspend fun login(authRequest: AuthRequest): Response<AuthResponse>
+    suspend fun login(authRequest: AuthRequest): String
 
-    suspend fun register(registerRequest: RegisterRequest): Response<AuthResponse>
+    suspend fun register(registerRequest: RegisterRequest): String
+    suspend fun getAllStocks(token: String): List<StockItem>
 
-    suspend fun getAllStocks(token: String): Response<List<StockResponse>>
-
-    suspend fun getStockByName(name: String, token: String): Response<StockResponse>
+    suspend fun getStockByName(name: String, token: String): StockItem?
 
     suspend fun addToFavorite(name: String, token: String)
 
@@ -27,5 +24,5 @@ interface NetworkRepository {
         ticker: String,
         startDate: String,
         endDate: String,
-    ): TimelineData?
+    ): TimelineData
 }

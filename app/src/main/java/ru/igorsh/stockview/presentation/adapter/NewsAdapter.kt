@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import ru.igorsh.stockview.R
-import ru.igorsh.stockview.domain.model.NewsItem
+import ru.igorsh.stockview.presentation.model.NewsUiModel
 
 class NewsAdapter : RecyclerView.Adapter<NewsViewHolder>() {
 
-    var newsList = mutableListOf<NewsItem>()
-    var clickListener: ((NewsItem) -> Unit)? = null
+    var newsList = mutableListOf<NewsUiModel>()
+    var clickListener: ((NewsUiModel) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return NewsViewHolder(view)
@@ -40,7 +40,7 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val description = itemView.findViewById<TextView>(R.id.news_item_description)
 
 
-    fun bind(newsItem: NewsItem) {
+    fun bind(newsItem: NewsUiModel) {
 
         val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.value_8dp)
 
