@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.igorsh.stockview.R
+import ru.igorsh.stockview.domain.model.TimelineData
 import ru.igorsh.stockview.presentation.model.StockUiModel
 import ru.igorsh.stockview.presentation.utils.MyXAxisValueFormatter
 import java.sql.Timestamp
@@ -47,26 +48,7 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
         )
 
         viewModel.timelineData.observe(viewLifecycleOwner) {
-            val lineEntry = arrayListOf<Entry>()
-            val xValues = arrayListOf<String>()
-
-            for (i in 0 until it.time!!.size) {
-                xValues.add(Timestamp(it.time[i].toString().toLong()).toString())
-                lineEntry.add(Entry(it.time[i].toFloat(), it.prices!![i].toFloat()))
-            }
-
-            val lineDataSet = LineDataSet(lineEntry, "${stock.name}  price")
-            lineDataSet.color = resources.getColor(R.color.yp_black, null)
-
-            val xAxis: XAxis = chart.xAxis
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.setDrawGridLines(false)
-            xAxis.labelRotationAngle = (-45).toFloat()
-            xAxis.valueFormatter = MyXAxisValueFormatter()
-
-            val data = LineData(lineDataSet)
-            chart.data = data
-            chart.animateXY(1000, 1000)
+            initTimeline(it, stock.name)
         }
     }
 
@@ -106,6 +88,29 @@ class StockFragment : Fragment(R.layout.fragment_stock) {
             this.text = textValue
             this.setTextColor(this.resources.getColor(stockUiModel.color, null))
         }
+    }
+
+    private fun initTimeline(timelineData: TimelineData, stockName: String) {
+        val lineEntry = arrayListOf<Entry>()
+        val xValues = arrayListOf<String>()
+
+        for (i in 0 until timelineData.time!!.size) {
+            xValues.add(Timestamp(timelineData.time[i].toString().toLong()).toString())
+            lineEntry.add(Entry(timelineData.time[i].toFloat(), timelineData.prices!![i].toFloat()))
+        }
+
+        val lineDataSet = LineDataSet(lineEntry, "$stockName  price")
+        lineDataSet.color = resources.getColor(R.color.yp_black, null)
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.labelRotationAngle = (-45).toFloat()
+        xAxis.valueFormatter = MyXAxisValueFormatter()
+
+        val data = LineData(lineDataSet)
+        chart.data = data
+        chart.animateXY(1000, 1000)
     }
 
     companion object {
